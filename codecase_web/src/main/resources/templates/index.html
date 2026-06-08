@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments :: htmlHead">
+</head>
+
+<body>
+<div th:insert="fragments :: headerContent"></div>
+<main>
+  <div id="main-container">
+    <div th:each="p, iterStat : ${Posts}" th:if="${iterStat.index < 6}">
+      <div th:replace="~{fragments :: case(post=${p})}"></div>
+    </div>
+    <span><a class="minbt-add" data-action ="Ajouter" href="/creationPost"></a></span>
+  </div>
+</main>
+<div th:insert="fragments :: footer"></div>
+
+</body>
+</html>
