@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments :: htmlHead">
+</head>
+
+<body>
+<div th:insert="fragments :: headerContent"></div>
+<main>
+  <div id="main-container">
+    <article>
+      <h1>Créer un post</h1>
+      <div class="article-container">
+        <form method="post" th:action="@{/createPost}" th:object="${post}">
+          <div class="form-group">
+            <input type="text" th:field="*{titrePost}" placeholder="Titre du post"/>
+          </div>
+          <div class="form-group">
+            <input type="text" th:field="*{descriptionPost}" placeholder="Description"/>
+          </div>
+          <div class="form-group">
+            <select name="tagId">
+              <option>Choisir un tag</option>
+              <option th:each="tag: ${tags}"
+                      th:value="${tag.idTag}" th:text="${tag.intituleTag}">
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea th:field="*{contenuPost}" placeholder="Code"></textarea>
+          </div>
+
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </article>
+  </div>
+</main>
+<div th:insert="fragments :: footer"></div>
+
+</body>
+</html>
