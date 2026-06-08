@@ -1,5 +1,6 @@
 package fr.swif.codecase_web.model;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
@@ -34,6 +35,7 @@ public class Post {
   /**
    * Variable postDescription
    */
+  @NotBlank(message = "La description ne doit pas être vide")
   @Size(max = 250,
       message = "La description doit contenir au maximum 250 caractères")
   private String postDescription;
@@ -41,7 +43,9 @@ public class Post {
   /**
    * Variable postContenu
    */
-  @NotEmpty(message = "Le post ne doit pas être vide")
+  @NotBlank(message = "Le post ne doit pas être vide")
+  @Size(max = 5000,
+      message = "Le contenu du post doit être de maximum 5000 caractères")
   private String postContenu;
 
   /**
