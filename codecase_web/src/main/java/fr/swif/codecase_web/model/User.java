@@ -2,6 +2,8 @@ package fr.swif.codecase_web.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import lombok.Data;
@@ -63,8 +65,15 @@ public class User {
   /**
    * Variable userAvatar
    */
-  @Max(250)
+  @NotBlank(message = "Vous devez choisir une image")
+  @Size(max = 250, message =
+      "Le nom de l'image ne doit pas dépasser 250 caractères")
   private String userAvatar;
+
+  /**
+   * Variable userMfaActif
+   */
+  private boolean userMfaActif;
 
   /**
    * Méthode setMdp (char[])
