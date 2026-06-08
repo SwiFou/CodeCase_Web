@@ -19,12 +19,12 @@ import lombok.Data;
 public class Post {
 
   /**
-   * Variable id.
+   * Variable postId
    */
   private Integer postId;
 
   /**
-   * Variable titre.
+   * Variable postTitre
    */
   @Size(min = 3, max = 100,
       message = "Le titre doit être renseigné et"
@@ -32,35 +32,35 @@ public class Post {
   private String postTitre;
 
   /**
-   * Variable description.
+   * Variable postDescription
    */
   @Size(max = 250,
       message = "La description doit contenir au maximum 250 caractères")
   private String postDescription;
 
   /**
-   * Variable contenu.
+   * Variable postContenu
    */
   @NotEmpty(message = "Le post ne doit pas être vide")
   private String postContenu;
 
   /**
-   * Variable userId.
+   * Variable userId
    */
   private User userId;
 
   /**
-   * Variable language de type Tag.
+   * Variable langageId de type langage
    */
-  private Tag langageId;
+  private Langage langageId;
 
   /**
-   * Variable tagCustom, dans une Arraylist de type Tag.
+   * Variable tagCustom, dans une Arraylist de type Tag
    */
 //  Set<Tag> tagCustom;
 
   /**
-   * Variable creationPost.
+   * Variable creationDatePost
    */
   private LocalDate creationDatePost;
 

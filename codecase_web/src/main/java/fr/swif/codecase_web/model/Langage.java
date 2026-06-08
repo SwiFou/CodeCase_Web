@@ -17,12 +17,12 @@ import lombok.Data;
 @Data
 public class Langage {
   /**
-   * Variable ID.
+   * Variable langageId
    */
-  private Integer idTag;
+  private Integer langageId;
 
   /**
-   * Variable intitulé
+   * Variable langageIntitule
    */
   @Size(min = 3, max = 30, message =
       "Le tag doit avoir un minimum de 3 caractères et un maximum de 30")

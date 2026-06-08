@@ -21,47 +21,47 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class User {
 
   /**
-   * Variable id
+   * Variable userId
    */
   private Integer userId;
 
   /**
-   * Variable pseudo
+   * Variable userPseudo
    */
   @Size(min = 3, max = 20, message = "Le pseudonyme doit être de 3 à 20 " +
       "caractères")
   private String userPseudo;
 
   /**
-   * Variable mdp
+   * Variable userMdp
    */
   private String userMdp;
 
   /**
-   * Variable email
+   * Variable userEmail
    */
   @Email
   private String userEmail;
 
   /**
-   * Variable role de type Role (Classe à créer)
+   * Variable role de type Role
    */
   Role role;
 
   /**
-   * Variable signInDate
+   * Variable userDateCreationCompte
    */
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate userDateCreationCompte;
 
   /**
-   * Variable lastLogin
+   * Variable userDerniereConnexion
    */
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate userDerniereConnexion;
 
   /**
-   * Variable avatarUser
+   * Variable userAvatar
    */
   @Max(250)
   private String userAvatar;
