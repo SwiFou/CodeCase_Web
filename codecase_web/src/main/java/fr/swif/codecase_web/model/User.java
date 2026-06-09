@@ -48,7 +48,7 @@ public class User {
   /**
    * Variable role de type Role
    */
-  Role role;
+  Role userRole;
 
   /**
    * Variable userDateCreationCompte
@@ -109,9 +109,9 @@ public class User {
    */
   public void setRole(String paraRole){
     if (paraRole.equals("Admin")){
-      this.role = Role.ADMIN;
+      this.userRole = Role.ADMIN;
     }else{
-      this.role = Role.USER;
+      this.userRole = Role.USER;
     }
   }
 
