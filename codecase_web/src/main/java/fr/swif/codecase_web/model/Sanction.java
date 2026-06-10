@@ -1,6 +1,7 @@
 package fr.swif.codecase_web.model;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,13 +38,13 @@ public class Sanction {
   /**
    * Variable sanctionDate
    */
-  @NotBlank(message = "Vous devez saisir la date de la sanction")
+  @NotEmpty(message = "Vous devez saisir la date de la sanction")
   private LocalDate sanctionDate;
 
   /**
    * Variable sanctionDateFin
    */
-  @NotBlank(message = "Vous devez saisir la date de fin de la sanction")
+  @NotEmpty(message = "Vous devez saisir la date de fin de la sanction")
   private LocalDateTime sanctionDateFin;
 
   /**

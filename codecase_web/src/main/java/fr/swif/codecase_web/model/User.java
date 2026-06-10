@@ -48,7 +48,7 @@ public class User {
   /**
    * Variable role de type Role
    */
-  Role userRole;
+  private Role userRole;
 
   /**
    * Variable userDateCreationCompte

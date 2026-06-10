@@ -23,6 +23,6 @@ public class Vote {
   /**
    * Variable voteType
    */
-  VoteType voteType;
+  private VoteType voteType;
 
 }

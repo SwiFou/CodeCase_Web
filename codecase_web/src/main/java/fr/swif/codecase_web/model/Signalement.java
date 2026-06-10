@@ -1,6 +1,7 @@
 package fr.swif.codecase_web.model;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import lombok.Data;
@@ -26,7 +27,7 @@ public class Signalement {
   /**
    * Variable signalementDate
    */
-  @NotBlank(message = "Vous devez saisir une date pour pouvoir valider le signalement")
+  @NotEmpty(message = "Vous devez saisir une date pour pouvoir valider le signalement")
   private LocalDate signalementDate;
 
   /**
