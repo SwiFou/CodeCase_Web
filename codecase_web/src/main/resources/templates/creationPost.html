@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments :: htmlHead">
 </head>
-
+<!--Changer les variables (Voir avec les controller)-->
 <body>
 <div th:insert="fragments :: headerContent"></div>
 <main>
@@ -19,7 +19,15 @@
           </div>
           <div class="form-group">
             <select name="tagId">
-              <option>Choisir un tag</option>
+              <option>Langage</option>
+              <option th:each="tag: ${tags}"
+                      th:value="${tag.idTag}" th:text="${tag.intituleTag}">
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select name="technoId">
+              <option>Outils & Technologies</option>
               <option th:each="tag: ${tags}"
                       th:value="${tag.idTag}" th:text="${tag.intituleTag}">
               </option>
@@ -29,7 +37,7 @@
             <textarea th:field="*{contenuPost}" placeholder="Code"></textarea>
           </div>
 
-          <button type="submit">Submit</button>
+          <button type="submit">Valider</button>
         </form>
       </div>
     </article>
