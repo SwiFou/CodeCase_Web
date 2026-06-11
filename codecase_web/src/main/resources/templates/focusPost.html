@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments :: htmlHead">
+</head>
+
+<body>
+<div th:insert="fragments :: headerContent"></div>
+<main>
+  <div id="main-container">
+    <article>
+      <div class ="article-header">
+        <div class="info-container">
+          <div class ="avatar-container">
+            <div class ="pseudo">
+              <span>Inscription</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="article-footer">
+      </div>
+    </article>
+  </div>
+</main>
+<div th:insert="fragments :: footer"></div>
+
+</body>
+</html>
