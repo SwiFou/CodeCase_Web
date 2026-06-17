@@ -4,8 +4,10 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -30,7 +32,7 @@ public class User {
   /**
    * Variable userPseudo
    */
-  @Size(min = 3, max = 20, message = "Le pseudonyme doit être de 3 à 20 " +
+  @Size(min = 3, max = 30, message = "Le pseudonyme doit être de 3 à 30 " +
       "caractères")
   private String userPseudo;
 
@@ -48,19 +50,22 @@ public class User {
   /**
    * Variable role de type Role
    */
+  @NotNull
   private Role userRole;
 
   /**
    * Variable userDateCreationCompte
    */
+  @NotNull
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate userDateCreationCompte;
 
   /**
    * Variable userDerniereConnexion
    */
+  @NotNull
   @DateTimeFormat(pattern = "yyyy-MM-dd")
-  private LocalDate userDerniereConnexion;
+  private LocalDateTime userDerniereConnexion;
 
   /**
    * Variable userAvatar
@@ -111,7 +116,7 @@ public class User {
     if (paraRole.equals("Admin")){
       this.userRole = Role.ADMIN;
     }else{
-      this.userRole = Role.USER;
+      this.userRole = Role.MEMBRE;
     }
   }
 
