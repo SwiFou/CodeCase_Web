@@ -148,12 +148,17 @@ public class PostRepository {
     String BASE_API_URL = props.getApiUrl();
     String deletePostUrl = BASE_API_URL + "/post/" + id;
 
+    // RestTemplate permet d'exécuter une requête HTTP, en fournissant l'URL, le
+    // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
+    // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+    // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
+    // exchange permet de transmettre :
     ResponseEntity<Post> response = restTemplate.exchange(
-        deletePostUrl,
-        HttpMethod.DELETE,
-        null,
-        Post.class
+        deletePostUrl, // L'URL
+        HttpMethod.DELETE, // La méthode HTTP
+        null, // La requête (requestEntity) qui peut renvoyer un Corps+Header ou rien
+        Post.class // le type de retour ici Post.class car c'est un objet simple
     );
 
     log.debug("Delete Post " + response.getStatusCode());
