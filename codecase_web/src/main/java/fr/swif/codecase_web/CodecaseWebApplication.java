@@ -7,8 +7,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+
+// @RequiredArgsConstructor génère automatiquement un constructeur prenant en
+// paramètre tous les champs final et @NotNull de la classe
 @RequiredArgsConstructor
+// @EnableConfigurationProperties sert à activer le binding de classes annotées
+// avec @ConfigurationProperties. Ici la classe CustomProperties
 @EnableConfigurationProperties(CustomProperties.class)
+// 
 @SpringBootApplication
 public class CodecaseWebApplication implements CommandLineRunner {
 

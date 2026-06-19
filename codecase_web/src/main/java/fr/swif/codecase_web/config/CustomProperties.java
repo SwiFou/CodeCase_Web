@@ -15,7 +15,11 @@ import org.springframework.context.annotation.Configuration;
  * @since 18/06/2026
  */
 
+// @Data est l'équivalent de @Getter @Setter @RequiredArgsConstructor
+// @ToString @EqualsAndHashCode
 @Data
+// @ConfigurationProperties permet de lier et de valider des propriétés
+// externes (par exemple, provenant d'un fichier .properties)
 @ConfigurationProperties(prefix = "fr.swif.codecase-web.appweb")
 public class CustomProperties {
 
