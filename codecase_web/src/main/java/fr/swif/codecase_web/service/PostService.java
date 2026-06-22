@@ -4,6 +4,9 @@ import fr.swif.codecase_web.model.Post;
 import fr.swif.codecase_web.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * PostService
@@ -24,19 +27,43 @@ public class PostService {
   private final PostRepository postRepository;
 
   public Iterable<Post> getPosts() {
-    return postRepository.getPosts();
+    try {
+      return postRepository.getPosts();
+    } catch (HttpClientErrorException cx) {
+      throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
+    } catch (HttpServerErrorException sx) {
+      throw new ResponseStatusException(sx.getStatusCode(), "Erreur serveur API");
+    }
   }
 
   public Post getPost(int id) {
-    return postRepository.getPost(id);
+    try {
+      return postRepository.getPost(id);
+    } catch (HttpClientErrorException cx) {
+      throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
+    } catch (HttpServerErrorException sx) {
+      throw new ResponseStatusException(sx.getStatusCode(), "Erreur serveur API");
+    }
   }
 
   public void deletePost(int id) {
-    postRepository.deletePost(id);
+    try {
+      postRepository.deletePost(id);
+    } catch (HttpClientErrorException cx) {
+      throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
+    } catch (HttpServerErrorException sx) {
+      throw new ResponseStatusException(sx.getStatusCode(), "Erreur serveur API");
+    }
   }
 
   public Post createPost(Post post) {
-    return postRepository.createPost(post);
+    try {
+      return postRepository.createPost(post);
+    } catch (HttpClientErrorException cx) {
+      throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
+    } catch (HttpServerErrorException sx) {
+      throw new ResponseStatusException(sx.getStatusCode(), "Erreur serveur API");
+    }
   }
 
 }
