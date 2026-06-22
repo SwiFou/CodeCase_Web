@@ -46,8 +46,8 @@ public class PostRepository {
    * @return un Iterable de Post
    */
   public Iterable<Post> getPosts() {
-    String BASE_API_UL = props.getApiUrl();
-    String getPostsUrl = BASE_API_UL + "/posts";
+    String BASE_API_URL = props.getApiUrl();
+    String getPostsUrl = BASE_API_URL + "/posts";
 
     // RestTemplate permet d'exécuter une requête HTTP, en fournissant l'URL, le
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
@@ -58,8 +58,8 @@ public class PostRepository {
     ResponseEntity<Iterable<Post>> response = restTemplate.exchange(
         getPostsUrl, // L'URL
         HttpMethod.GET, // La méthode HTTP
-        null, // La requête (requestEntity) qui peut renvoyer un Corps+Header ou rien
-        new ParameterizedTypeReference<>() {} // le type de retour ici ParameterizedTypeReference car c'est un Iterable
+        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        new ParameterizedTypeReference<>() {} // Le type de retour ici ParameterizedTypeReference car c'est un Iterable
     );
     log.debug("Get Posts " + response.getStatusCode());
 
@@ -90,8 +90,8 @@ public class PostRepository {
     ResponseEntity<Post> response = restTemplate.exchange(
         getPostUrl, // L'URL
         HttpMethod.GET, // La méthode HTTP
-        null, // La requête (requestEntity) qui peut renvoyer un Corps+Header ou rien
-        Post.class // le type de retour ici Post.class car c'est un objet simple
+        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        Post.class // Le type de retour ici Post.class car c'est un objet simple
     );
 
     log.debug("Get Post " + response.getStatusCode());
@@ -106,7 +106,7 @@ public class PostRepository {
    *<i>de PostRepository</i>
    *<h1></h1>
    *<hr>
-   *<p>Remvoie le Post une fois créé dans la BDD</p>
+   *<p>Renvoie le Post une fois créé dans la BDD</p>
    * @param post Le Post à créer
    * @return Le Post créé
    */
@@ -126,7 +126,7 @@ public class PostRepository {
         createPostUrl, // L'URL
         HttpMethod.POST, // La méthode HTTP
         request, // Le HttpEntity
-        Post.class // le type de retour ici Post.class car c'est un objet simple
+        Post.class // Le type de retour ici Post.class car c'est un objet simple
     );
 
     log.debug("Create Post " + response.getStatusCode());
@@ -157,8 +157,8 @@ public class PostRepository {
     ResponseEntity<Post> response = restTemplate.exchange(
         deletePostUrl, // L'URL
         HttpMethod.DELETE, // La méthode HTTP
-        null, // La requête (requestEntity) qui peut renvoyer un Corps+Header ou rien
-        Post.class // le type de retour ici Post.class car c'est un objet simple
+        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        Post.class // Le type de retour ici Post.class car c'est un objet simple
     );
 
     log.debug("Delete Post " + response.getStatusCode());
