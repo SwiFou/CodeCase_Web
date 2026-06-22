@@ -34,6 +34,15 @@ public class UserService {
 
   private final UserRepository userRepository;
 
+  /**
+   * Méthode getUsers
+   *
+   *<i>de UserService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie tous les Users en BDD</p>
+   * @return Un Iterable de User
+   */
   public Iterable<User> getUsers() {
     try {
       return userRepository.getUsers();
@@ -46,6 +55,16 @@ public class UserService {
     }
   }
 
+  /**
+   * Méthode getUser
+   *
+   *<i>de UserService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie un User avec l'id spécifié</p>
+   * @param id L'id du User cherché
+   * @return Le User
+   */
   public User getUser(int id) {
     try {
       return userRepository.getUser(id);
@@ -58,6 +77,16 @@ public class UserService {
     }
   }
 
+  /**
+   * Méthode getUserByPseudo
+   *
+   *<i>de UserService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie un User avec le pseudo spécifié</p>
+   * @param pseudo Le pseudo du User Cherché
+   * @return Le User
+   */
   public User getUserByPseudo(String pseudo) {
     try {
       return userRepository.getUserByPseudo(pseudo);
@@ -70,6 +99,15 @@ public class UserService {
     }
   }
 
+  /**
+   * Méthode deleteUser
+   *
+   *<i>de UserService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Supprime le User avec l'id spécifié, ne renvoie rien</p>
+   * @param id L'id du User à supprimer
+   */
   public void deleteUser(int id) {
     try {
       userRepository.deleteUser(id);
@@ -82,6 +120,16 @@ public class UserService {
     }
   }
 
+  /**
+   * Méthode createUser
+   *
+   *<i>de UserService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie le User une fois créé dans la BDD</p>
+   * @param user Le User à créer
+   * @return Le User créé
+   */
   public User createUser(User user) {
     try {
       return userRepository.createUser(user);
@@ -94,6 +142,16 @@ public class UserService {
     }
   }
 
+  /**
+   * Méthode updateUser
+   *
+   *<i>de UserService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie à la BDD un User à mettre à jour et renvoie le User</p>
+   * @param user Le User mis à jour
+   * @return Le User mis à jour si réussi
+   */
   public User updateUser(User user) {
     try {
       return userRepository.updateUser(user);
@@ -106,6 +164,15 @@ public class UserService {
     }
   }
 
+  /**
+   * Méthode anonymisationUser
+   *
+   *<i>de UserService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Anonymise le User avec l'id spécifié, ne renvoie rien </p>
+   * @param id L'id du User à anonymiser
+   */
   public void anonymisationUser(int id) {
     try {
       userRepository.anonymisationUser(id);

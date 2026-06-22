@@ -31,6 +31,15 @@ public class PostService {
 
   private final PostRepository postRepository;
 
+  /**
+   * Méthode getPosts
+   *
+   *<i>de PostService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie tous les Posts en BDD</p>
+   * @return Un Iterable de Post
+   */
   public Iterable<Post> getPosts() {
     try {
       return postRepository.getPosts();
@@ -43,6 +52,16 @@ public class PostService {
     }
   }
 
+  /**
+   * Méthode getPost
+   *
+   *<i>de PostService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie un Post avec l'id spécifié</p>
+   * @param id L'id du Post cherché
+   * @return Le Post
+   */
   public Post getPost(int id) {
     try {
       return postRepository.getPost(id);
@@ -55,6 +74,15 @@ public class PostService {
     }
   }
 
+  /**
+   * Méthode deletePost
+   *
+   *<i>de PostService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Supprime le Post avec l'id spécifié, ne renvoie rien</p>
+   * @param id L'id du Post à supprimer
+   */
   public void deletePost(int id) {
     try {
       postRepository.deletePost(id);
@@ -67,6 +95,16 @@ public class PostService {
     }
   }
 
+  /**
+   * Méthode createPost
+   *
+   *<i>de PostService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie le Post une fois créé dans la BDD</p>
+   * @param post Le Post à créer
+   * @return Le Post créé
+   */
   public Post createPost(Post post) {
     try {
       return postRepository.createPost(post);
