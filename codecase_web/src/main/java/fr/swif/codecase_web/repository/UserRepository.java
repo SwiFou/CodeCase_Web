@@ -199,6 +199,26 @@ public class UserRepository {
     return response.getBody();
   }
 
+  public void anonymisationUser(int id) {
+    String BASE_API_URL = props.getApiUrl();
+    String anonymisationUserUrl = BASE_API_URL + "/user_anonym/" + id;
+
+    // RestTemplate permet d'exécuter une requête HTPP, en fournissant l'URL, le
+    // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
+    // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
+    RestTemplate restTemplate = new RestTemplate();
+    // ResponseEntity est une classe Spring qui représente toute la réponse HTPP
+    // exchange permet de transmettre :
+    ResponseEntity<User> response = restTemplate.exchange(
+        anonymisationUserUrl, // L'URL
+        HttpMethod.PUT, // La méthode HTPP
+        null,
+        User.class
+    );
+
+    log.debug("Anonymisation User " + response.getStatusCode());
+  }
+
   /**
    * Méthode deleteUser
    *
@@ -218,11 +238,11 @@ public class UserRepository {
     RestTemplate restTemplate = new RestTemplate();
     // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
-    ResponseEntity<Post> response = restTemplate.exchange(
+    ResponseEntity<User> response = restTemplate.exchange(
         deleteUserUrl, // L'URL
         HttpMethod.DELETE, // La méthode HTTP
         null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
-        Post.class // Le type de retour ici Post.class car c'est un objet simple
+        User.class // Le type de retour ici Post.class car c'est un objet simple
     );
 
     log.debug("Delete User " + response.getStatusCode());

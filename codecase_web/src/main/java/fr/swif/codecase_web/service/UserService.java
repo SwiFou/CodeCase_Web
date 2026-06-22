@@ -1,7 +1,9 @@
 package fr.swif.codecase_web.service;
 
 import fr.swif.codecase_web.model.Post;
+import fr.swif.codecase_web.model.User;
 import fr.swif.codecase_web.repository.PostRepository;
+import fr.swif.codecase_web.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -10,7 +12,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.server.ResponseStatusException;
 
 /**
- * PostService
+ * UserService
  * <i>de fr.swif.codecase_web.service</i>
  * <hr>
  * <p></p>
@@ -20,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
  * @since 22/06/2026
  */
 
+
 // @Slf4j permet de générer un champ de log
 @Slf4j
 // @Service sert à indiquer que la classe détient la logique métier du CRUD
@@ -27,13 +30,13 @@ import org.springframework.web.server.ResponseStatusException;
 // @RequiredArgsConstructor génère automatiquement un constructeur prenant en
 // paramètre tous les champs final et @NotNull de la classe
 @RequiredArgsConstructor
-public class PostService {
+public class UserService {
 
-  private final PostRepository postRepository;
+  private final UserRepository userRepository;
 
-  public Iterable<Post> getPosts() {
+  public Iterable<User> getUsers() {
     try {
-      return postRepository.getPosts();
+      return userRepository.getUsers();
     } catch (HttpClientErrorException cx) {
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
@@ -43,9 +46,9 @@ public class PostService {
     }
   }
 
-  public Post getPost(int id) {
+  public User getUser(int id) {
     try {
-      return postRepository.getPost(id);
+      return userRepository.getUser(id);
     } catch (HttpClientErrorException cx) {
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
@@ -55,9 +58,9 @@ public class PostService {
     }
   }
 
-  public void deletePost(int id) {
+  public User getUserByPseudo(String pseudo) {
     try {
-      postRepository.deletePost(id);
+      return userRepository.getUserByPseudo(pseudo);
     } catch (HttpClientErrorException cx) {
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
@@ -67,9 +70,45 @@ public class PostService {
     }
   }
 
-  public Post createPost(Post post) {
+  public void deleteUser(int id) {
     try {
-      return postRepository.createPost(post);
+      userRepository.deleteUser(id);
+    } catch (HttpClientErrorException cx) {
+      log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
+      throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
+    } catch (HttpServerErrorException sx) {
+      log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
+      throw new ResponseStatusException(sx.getStatusCode(), "Erreur serveur API");
+    }
+  }
+
+  public User createUser(User user) {
+    try {
+      return userRepository.createUser(user);
+    } catch (HttpClientErrorException cx) {
+      log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
+      throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
+    } catch (HttpServerErrorException sx) {
+      log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
+      throw new ResponseStatusException(sx.getStatusCode(), "Erreur serveur API");
+    }
+  }
+
+  public User updateUser(User user) {
+    try {
+      return userRepository.updateUser(user);
+    } catch (HttpClientErrorException cx) {
+      log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
+      throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
+    } catch (HttpServerErrorException sx) {
+      log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
+      throw new ResponseStatusException(sx.getStatusCode(), "Erreur serveur API");
+    }
+  }
+
+  public void anonymisationUser(int id) {
+    try {
+      userRepository.anonymisationUser(id);
     } catch (HttpClientErrorException cx) {
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
