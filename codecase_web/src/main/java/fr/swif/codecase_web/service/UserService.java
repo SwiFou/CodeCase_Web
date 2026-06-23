@@ -104,6 +104,30 @@ public class UserService {
   }
 
   /**
+   * Méthode getUserByMail
+   *
+   *<i>de UserService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie un User avec le mail spécifié</p>
+   * @param mail Le mail du User cherché
+   * @return Le User
+   */
+  public User getUserByMail(String mail) {
+    try {
+      return userRepository.getUserByMail(mail);
+    } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
+      log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
+      throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
+    } catch (HttpServerErrorException sx) {
+      log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
+      throw new ResponseStatusException(sx.getStatusCode(), "Erreur serveur API");
+    }
+  }
+
+  /**
    * Méthode deleteUser
    *
    *<i>de UserService</i>
@@ -180,7 +204,7 @@ public class UserService {
    *<i>de UserService</i>
    *<h1></h1>
    *<hr>
-   *<p>Anonymise le User avec l'id spécifié, ne renvoie rien </p>
+   *<p>Anonymise le User avec l'id spécifié, ne renvoie rien</p>
    * @param id L'id du User à anonymiser
    */
   public void anonymisationUser(int id) {

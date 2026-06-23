@@ -78,7 +78,7 @@ public class UserRepository {
    *<hr>
    *<p>Renvoie un User avec l'id spécifié</p>
    * @param id L'id du User recherché
-   * @return Le User
+   * @return Le User cherché
    */
   public User getUser(int id) {
     String BASE_API_URL = props.getApiUrl();
@@ -103,7 +103,16 @@ public class UserRepository {
     return response.getBody();
   }
 
-
+  /**
+   * Méthode getUserByPseudo
+   *
+   *<i>de UserRepository</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie un User avec le pseudo spécifié</p>
+   * @param pseudo Le pseudo du User cherché
+   * @return Le User cherché
+   */
   public User getUserByPseudo(String pseudo) {
     String BASE_API_URL = props.getApiUrl();
     String getUserByPseudoUrl = BASE_API_URL + "/userPseudo/" + pseudo;
@@ -122,6 +131,39 @@ public class UserRepository {
     );
 
     log.debug("Get User by Pseudo" + response.getStatusCode());
+
+    // On récupère l'objet grâce à la méthode getBody() de l'objet Response
+    return response.getBody();
+  }
+
+  /**
+   * Méthode getUserByMail
+   *
+   *<i>de UserRepository</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie un User avec l'email spécifié</p>
+   * @param mail L'email du User cherché
+   * @return Le User cherché
+   */
+  public User getUserByMail(String mail) {
+    String BASE_API_URL = props.getApiUrl();
+    String getUserByMailUrl = BASE_API_URL + "/userMail/" + mail;
+
+    // RestTemplate permet d'exécuter une requête HTTP, en fournissant L'URL, le
+    // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
+    // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
+    RestTemplate restTemplate = new RestTemplate();
+    // ResponseEntíty est une classe Spring qui représente toute la réponse HTTP
+    // exchange permet de transmettre :
+    ResponseEntity<User> response= restTemplate.exchange(
+        getUserByMailUrl, // L'URL
+        HttpMethod.GET, // La méthode HTTP
+        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        User.class // Le type de retour ici User.class car c'est un objet simple
+    );
+
+    log.debug("Get User by Mail" + response.getStatusCode());
 
     // On récupère l'objet grâce à la méthode getBody() de l'objet Response
     return response.getBody();
@@ -197,6 +239,15 @@ public class UserRepository {
     return response.getBody();
   }
 
+  /**
+   * Méthode anonymisationUser
+   *
+   *<i>de UserRepository</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Anonymise le User avec l'id spécifié, ne renvoie rien</p>
+   * @param id L'id du User à anonymiser
+   */
   public void anonymisationUser(int id) {
     String BASE_API_URL = props.getApiUrl();
     String anonymisationUserUrl = BASE_API_URL + "/user_anonym/" + id;
