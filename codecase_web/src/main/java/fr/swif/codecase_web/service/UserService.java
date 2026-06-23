@@ -23,7 +23,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 // @Slf4j permet de générer un champ de log
 @Slf4j
-// @Service sert à indiquer que la classe détient la logique métier du CRUD
+// @Service sert à indiquer que la classe détient la logique métier
 @Service
 // @RequiredArgsConstructor génère automatiquement un constructeur prenant en
 // paramètre tous les champs final et @NotNull de la classe
@@ -63,7 +63,7 @@ public class UserService {
    *<hr>
    *<p>Renvoie un User avec l'id spécifié</p>
    * @param id L'id du User cherché
-   * @return Le User
+   * @return Le User cherché
    */
   public User getUser(int id) {
     try {
@@ -87,7 +87,7 @@ public class UserService {
    *<hr>
    *<p>Renvoie un User avec le pseudo spécifié</p>
    * @param pseudo Le pseudo du User Cherché
-   * @return Le User
+   * @return Le User cherché
    */
   public User getUserByPseudo(String pseudo) {
     try {
@@ -111,7 +111,7 @@ public class UserService {
    *<hr>
    *<p>Renvoie un User avec le mail spécifié</p>
    * @param mail Le mail du User cherché
-   * @return Le User
+   * @return Le User cherché
    */
   public User getUserByMail(String mail) {
     try {
@@ -182,7 +182,7 @@ public class UserService {
    *<hr>
    *<p>Renvoie à la BDD un User à mettre à jour et renvoie le User</p>
    * @param user Le User mis à jour
-   * @return Le User mis à jour si réussi
+   * @return Le User mis à jour
    */
   public User updateUser(User user) {
     try {

@@ -38,6 +38,7 @@ public class PostController {
 
   @GetMapping("/creationPost")
   public String formulaire(Model model) {
+    //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     model.addAttribute("post", new Post());
     return "creationPost";
   }
@@ -45,6 +46,7 @@ public class PostController {
   @PostMapping("/createPost")
   public ModelAndView savePost(@ModelAttribute("post") Post post) {
     //! TEMPORAIRE POUR L'ID
+    //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     post.setUserId(userService.getUser(1));
     post.setPostDateCreation(LocalDateTime.now());
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments :: htmlHead">
+</head>
+
+<body>
+<div th:insert="fragments :: headerContent"></div>
+<main>
+  <div id="main-container">
+    <article>
+      <div class ="article-header">
+        <div class="info-container">
+          <div class ="avatar-container">
+            <div class ="pseudo">
+              <span>Inscription</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="article-container">
+        <form id="formSave" method="post" th:object="${user}" th:action="@{/saveUser}">
+          <div class="form-group">
+            <input type="text" th:field="*{emailUser}" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <input type="text" name="pseudoUser" th:field="*{pseudoUser}" placeholder="Pseudonyme">
+          </div>
+          <div class="form-group">
+            <input type="text" th:field="*{passwordUser}" placeholder="Mot de Passe">
+          </div>
+          <div class="form-group">
+            <input type="text" th:field="*{avatarUser}" placeholder="Avatar">
+          </div>
+
+          <button type="submit" >Save</button>
+        </form>
+        <form id="formDelete" method="post" th:object="${user}" th:action="@{/deleteUser}">
+          <input type="hidden" th:field="*{emailUser}" placeholder="Email">
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+      <div class="article-footer">
+      </div>
+    </article>
+  </div>
+</main>
+<div th:insert="fragments :: footer"></div>
+
+</body>
+</html>

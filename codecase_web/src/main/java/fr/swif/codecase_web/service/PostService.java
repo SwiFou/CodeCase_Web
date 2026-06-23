@@ -22,7 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 // @Slf4j permet de générer un champ de log
 @Slf4j
-// @Service sert à indiquer que la classe détient la logique métier du CRUD
+// @Service sert à indiquer que la classe détient la logique métier
 @Service
 // @RequiredArgsConstructor génère automatiquement un constructeur prenant en
 // paramètre tous les champs final et @NotNull de la classe

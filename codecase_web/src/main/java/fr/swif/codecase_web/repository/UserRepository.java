@@ -212,7 +212,7 @@ public class UserRepository {
    *<hr>
    *<p>Renvoie à la BDD un User à mettre à jour et renvoie le User</p>
    * @param user Le User mis à jour
-   * @return Le User mis à jour si réussi
+   * @return Le User mis à jour
    */
   public User updateUser(User user) {
     String BASE_API_URL = props.getApiUrl();
