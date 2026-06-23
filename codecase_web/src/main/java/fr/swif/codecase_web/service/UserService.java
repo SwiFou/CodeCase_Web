@@ -47,6 +47,8 @@ public class UserService {
     try {
       return userRepository.getUsers();
     } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
     } catch (HttpServerErrorException sx) {
@@ -69,6 +71,8 @@ public class UserService {
     try {
       return userRepository.getUser(id);
     } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
     } catch (HttpServerErrorException sx) {
@@ -91,6 +95,8 @@ public class UserService {
     try {
       return userRepository.getUserByPseudo(pseudo);
     } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
     } catch (HttpServerErrorException sx) {
@@ -112,6 +118,8 @@ public class UserService {
     try {
       userRepository.deleteUser(id);
     } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
     } catch (HttpServerErrorException sx) {
@@ -134,6 +142,8 @@ public class UserService {
     try {
       return userRepository.createUser(user);
     } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
     } catch (HttpServerErrorException sx) {
@@ -156,6 +166,8 @@ public class UserService {
     try {
       return userRepository.updateUser(user);
     } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
     } catch (HttpServerErrorException sx) {
@@ -177,6 +189,8 @@ public class UserService {
     try {
       userRepository.anonymisationUser(id);
     } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
     } catch (HttpServerErrorException sx) {

@@ -44,6 +44,8 @@ public class PostService {
     try {
       return postRepository.getPosts();
     } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
     } catch (HttpServerErrorException sx) {
@@ -66,6 +68,8 @@ public class PostService {
     try {
       return postRepository.getPost(id);
     } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
     } catch (HttpServerErrorException sx) {
@@ -87,6 +91,8 @@ public class PostService {
     try {
       postRepository.deletePost(id);
     } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
     } catch (HttpServerErrorException sx) {
@@ -109,6 +115,8 @@ public class PostService {
     try {
       return postRepository.createPost(post);
     } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
       throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
     } catch (HttpServerErrorException sx) {
