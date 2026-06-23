@@ -3,6 +3,7 @@ package fr.swif.codecase_web.controller;
 import fr.swif.codecase_web.model.Post;
 import fr.swif.codecase_web.service.PostService;
 import fr.swif.codecase_web.service.UserService;
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 // @RequiredArgsConstructor génère automatiquement un constructeur prenant
 // en paramètre tous les champs final et @NotNull de la classe
 @RequiredArgsConstructor
-public class PostRestController {
+public class PostController {
 
   private final PostService postService;
 
@@ -43,6 +44,11 @@ public class PostRestController {
 
   @PostMapping("/createPost")
   public ModelAndView savePost(@ModelAttribute("post") Post post) {
+    //! TEMPORAIRE POUR L'ID
+    post.setUserId(userService.getUser(1));
+    post.setPostDateCreation(LocalDateTime.now());
 
+    postService.createPost(post);
+    return new ModelAndView("redirect:/");
   }
 }
