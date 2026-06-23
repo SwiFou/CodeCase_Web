@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:insert="fragments :: htmlHead">
 </head>
-<!--Changer les variables (Voir avec les controller)-->
+<!--! Changer les variables Langage et Outils & Technologies (Voir avec les controller)-->
 <body>
 <div th:insert="fragments :: headerContent"></div>
 <main>
@@ -12,32 +12,47 @@
       <div class="article-container">
         <form method="post" th:action="@{/createPost}" th:object="${post}">
           <div class="form-group">
-            <input type="text" th:field="*{titrePost}" placeholder="Titre du post"/>
+            <label>
+              Titre du post
+              <input type="text" th:field="*{postTitre}" placeholder="Titre du post"/>
+            </label>
           </div>
           <div class="form-group">
-            <input type="text" th:field="*{descriptionPost}" placeholder="Description"/>
+            <label>
+              Description du post
+              <input type="text" th:field="*{postDescription}" placeholder="Description"/>
+            </label>
           </div>
           <div class="form-group">
-            <select name="tagId">
-              <option>Langage</option>
-              <option th:each="tag: ${tags}"
-                      th:value="${tag.idTag}" th:text="${tag.intituleTag}">
-              </option>
-            </select>
+            <label>
+              Langage dans lequel est écrit le code du post
+              <select name="tagId">
+                <option>Langage</option>
+                <option th:each="tag: ${tags}"
+                        th:value="${tag.idTag}" th:text="${tag.intituleTag}">
+                </option>
+              </select>
+            </label>
           </div>
           <div class="form-group">
-            <select name="technoId">
-              <option>Outils & Technologies</option>
-              <option th:each="tag: ${tags}"
-                      th:value="${tag.idTag}" th:text="${tag.intituleTag}">
-              </option>
-            </select>
+            <label>
+              Les outils et technologies du code du post
+              <select name="technoId">
+                <option>Outils & Technologies</option>
+                <option th:each="tag: ${tags}"
+                        th:value="${tag.idTag}" th:text="${tag.intituleTag}">
+                </option>
+              </select>
+            </label>
           </div>
           <div class="form-group">
-            <textarea th:field="*{contenuPost}" placeholder="Code"></textarea>
+            <label>
+              <textarea th:field="*{postContenu}" placeholder="Code"></textarea>
+            </label>
           </div>
 
           <button type="submit">Valider</button>
+
         </form>
       </div>
     </article>

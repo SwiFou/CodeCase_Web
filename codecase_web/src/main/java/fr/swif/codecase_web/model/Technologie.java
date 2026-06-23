@@ -1,7 +1,6 @@
 package fr.swif.codecase_web.model;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 /**

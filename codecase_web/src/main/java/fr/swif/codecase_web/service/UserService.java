@@ -1,8 +1,6 @@
 package fr.swif.codecase_web.service;
 
-import fr.swif.codecase_web.model.Post;
 import fr.swif.codecase_web.model.User;
-import fr.swif.codecase_web.repository.PostRepository;
 import fr.swif.codecase_web.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
