@@ -26,9 +26,9 @@
   </header>
 </div>
 
-<!--Voir comment faire pour mettre juste le bouton Déconnecter quand on est connecté-->
+<!--! Voir comment faire pour mettre juste le bouton Déconnecter quand on est connecté-->
 
-<!--<div th:fragment="headerConnecte">-->
+<!--! <div th:fragment="headerConnecte">-->
 <!--  <header>-->
 <!--    <div id="header-container">-->
 <!--      <div id="logo-container">-->
@@ -40,7 +40,7 @@
 <!--      </div>-->
 <!--    </div>-->
 <!--  </header>-->
-<!--</div>-->
+<!--!</div>-->
 
 <div th:fragment="case(post)">
   <article>
@@ -51,20 +51,21 @@
             <img src="" alt="avatar">
           </div>
           <div class ="pseudo">
-            <span th:text ="${post.idUser}"></span>
+            <span th:text ="${post.userId}"></span>
           </div>
           <div class ="datePostCase">
-            <span th:text = "${post.dateCreation}">il y a 35 min</span>
+            <!--! Trouver un moyen de mettre la vraie valeur heures/minutes-->
+            <span th:text = "${post.postDateCreation}">il y a 35 min</span>
           </div>
         </div>
       </div>
       <div class ="tag-container">
-        <span th:text ="${post.idTag}"></span>
+        <span th:text ="${post.langageId}"></span>
       </div>
     </div>
-    <div class ="article-title" th:text="${post.titrePost}"></div>
-    <div class="article-description" th:text="${post.descriptionPost}"></div>
-    <div class="article-container" th:text="${post.contenuPost}"></div>
+    <div class ="article-title" th:text="${post.postTitre}"></div>
+    <div class="article-description" th:text="${post.postDescription}"></div>
+    <div class="article-container" th:text="${post.postContenu}"></div>
     <div class="article-footer">
       <span><a class="bt-like" data-action ="like" href=""></a></span>
       <span><a class="bt-flag" data-action ="flag" href=""></a></span>
@@ -86,18 +87,18 @@
     <div class="article-container">
       <form method="post" th:action="@{/createUser}" th:object="${user}">
         <div class="form-group">
-          <input type="text" th:field="*{emailUser}" placeholder="Email">
+          <input type="text" th:field="*{userEmail}" placeholder="Email">
         </div>
         <div class="form-group">
-          <input type="text" th:field="*{pseudoUser}" placeholder="Pseudonyme">
+          <input type="text" th:field="*{userPseudo}" placeholder="Pseudonyme">
         </div>
         <div class="form-group">
-          <input type="text" th:field="*{passwordUser}" placeholder="Mot de Passe">
+          <input type="text" th:field="*{userMdp}" placeholder="Mot de Passe">
         </div>
         <div class="form-group">
-          <input type="text" th:field="*{avatarUser}" placeholder="Avatar">
+          <input type="text" th:field="*{userAvatar}" placeholder="Avatar">
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">Valider</button>
       </form>
     </div>
     <div class="article-footer">
