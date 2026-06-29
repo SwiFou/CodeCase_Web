@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head th:insert="fragments :: htmlHead">
+  <title>Espace personnel</title>
 </head>
-
+<!--! A CHANGER POUR L'ESPACE PERSONNEL -->
 <body>
 <div th:insert="fragments :: headerContent"></div>
 <main>
@@ -20,22 +21,22 @@
       <div class="article-container">
         <form id="formSave" method="post" th:object="${user}" th:action="@{/saveUser}">
           <div class="form-group">
-            <input type="text" th:field="*{emailUser}" placeholder="Email">
+            <input type="text" th:field="*{userEmail}" placeholder="Email">
           </div>
           <div class="form-group">
-            <input type="text" name="pseudoUser" th:field="*{pseudoUser}" placeholder="Pseudonyme">
+            <input type="text" name="pseudoUser" th:field="*{userPseudo}" placeholder="Pseudonyme">
           </div>
           <div class="form-group">
-            <input type="text" th:field="*{passwordUser}" placeholder="Mot de Passe">
+            <input type="text" th:field="*{userMdp}" placeholder="Mot de Passe">
           </div>
           <div class="form-group">
-            <input type="text" th:field="*{avatarUser}" placeholder="Avatar">
+            <input type="text" th:field="*{userAvatar}" placeholder="Avatar">
           </div>
 
           <button type="submit" >Save</button>
         </form>
         <form id="formDelete" method="post" th:object="${user}" th:action="@{/deleteUser}">
-          <input type="hidden" th:field="*{emailUser}" placeholder="Email">
+          <input type="hidden" th:field="*{userEmail}" placeholder="Email">
           <button type="submit">Delete</button>
         </form>
       </div>

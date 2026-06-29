@@ -27,6 +27,16 @@ public class HomeController {
 
   private final PostService postService;
 
+  /**
+   * Méthode home
+   *
+   *<i>de HomeController</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Méthode permettant d'accéder à la page d'accueil</p>
+   * @param model Les posts créés
+   * @return La page d'accueil
+   */
   @GetMapping("/")
   public String home(Model model) {
     model.addAttribute("Posts", postService.getPosts());

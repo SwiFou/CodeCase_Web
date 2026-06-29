@@ -36,6 +36,16 @@ public class PostController {
 
   private final UserService userService;
 
+  /**
+   * Méthode formulaire
+   *
+   *<i>de PostController</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Méthode permettant d'accéder à la page creationPost</p>
+   * @param model Le Post attendant d'être créé
+   * @return La page creationPost
+   */
   @GetMapping("/creationPost")
   public String formulaire(Model model) {
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
@@ -43,6 +53,17 @@ public class PostController {
     return "creationPost";
   }
 
+  /**
+   * Méthode savePost
+   *
+   *<i>de PostController</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Méthode permettant de créer un Post (sauvegarder) et de rediriger sur
+   * la page d'accueil</p>
+   * @param post L'id du Post et sa date de création
+   * @return La page d'accueil
+   */
   @PostMapping("/createPost")
   public ModelAndView savePost(@ModelAttribute("post") Post post) {
     //! TEMPORAIRE POUR L'ID

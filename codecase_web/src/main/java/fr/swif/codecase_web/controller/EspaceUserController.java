@@ -38,6 +38,17 @@ public class EspaceUserController {
 
   private final PostService postService;
 
+  /**
+   * Méthode login
+   *
+   *<i>de EspaceUserController</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Méthode permettant d'accéder à la page espaceUser</p>
+   * @param userMail Le mail du User est vérifié
+   * @param model Le User
+   * @return La page espaceUser
+   */
   @GetMapping("/espaceUser")
   public String login(@RequestParam String userMail, Model model) {
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
@@ -47,6 +58,18 @@ public class EspaceUserController {
     return "espaceUser";
   }
 
+  /**
+   * Méthode saveEmail
+   *
+   *<i>de EspaceUserController</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Méthode permettant de sauvegarder la nouvelle adresse mail du User et
+   * de rediriger sur la page espaceUser</p>
+   * @param user Le User qui veut mettre à jour son adresse mail
+   * @param redirectAttributes Le message affiché à l'utilisateur
+   * @return La page dans laquelle le User est redirigé
+   */
   // Utilisation de @PostMapping malgré le fait que ce soit une modification,
   // car les formulaires en HTML classiques ne supprortent que les méthodes GET
   // et POST
@@ -64,6 +87,47 @@ public class EspaceUserController {
     return new ModelAndView("redirect:/espaceUser");
   }
 
+  /**
+   * Méthode saveAvatar
+   *
+   *<i>de EspaceUserController</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Méthode permettant de sauvegarder le nouvel avatar du User et
+   * de rediriger sur la page espaceUser</p>
+   * @param user Le User qui veut mettre à jour son avatar
+   * @param redirectAttributes Le message affiché à l'utilisateur
+   * @return La page dans laquelle le User est redirigé
+   */
+  // Utilisation de @PostMapping malgré le fait que ce soit une modification,
+  // car les formulaires en HTML classiques ne supprortent que les méthodes GET
+  // et POST
+  @PostMapping("/saveAvatar")
+  public ModelAndView saveAvatar(@ModelAttribute("user") User user,
+      RedirectAttributes redirectAttributes) {
+    //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
+    user.setUserAvatar(user.getUserAvatar());
+    userService.updateUser(user);
+
+    // addFlashAttribute permet de sauvegarder un message avant la redirection
+    // de la page, n'est disponible qu'une seule fois puis est automatiquement
+    // supprimé
+    redirectAttributes.addFlashAttribute("message", "Avatar modifié avec succès");
+    return new ModelAndView("redirect:/espaceUser");
+  }
+
+  /**
+   * Méthode saveMdp
+   *
+   *<i>de EspaceUserController</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Méthode permettant de sauvegarder le nouveau mot de passe du User et
+   * de rediriger sur la page espaceUser</p>
+   * @param user Le User qui veut mettre à jour son mot de passe
+   * @param redirectAttributes Le message affiché à l'utilisateur
+   * @return La page dans laquelle le User est redirigé
+   */
   // Utilisation de @PostMapping malgré le fait que ce soit une modification,
   // car les formulaires en HTML classiques ne supprortent que les méthodes GET
   // et POST
