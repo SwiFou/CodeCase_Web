@@ -1,5 +1,6 @@
 package fr.swif.codecase_web.service;
 
+import fr.swif.codecase_web.exception.CodeCaseWebException;
 import fr.swif.codecase_web.model.Post;
 import fr.swif.codecase_web.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.client.ResourceAccessException;
 
 /**
  * PostService
@@ -39,18 +40,22 @@ public class PostService {
    *<hr>
    *<p>Renvoie tous les Posts en BDD</p>
    * @return Un Iterable de Post
+   * @throws CodeCaseWebException
    */
-  public Iterable<Post> getPosts() {
+  public Iterable<Post> getPosts() throws CodeCaseWebException {
     try {
       return postRepository.getPosts();
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
+      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new ResponseStatusException(sx.getStatusCode(), "Erreur serveur API");
+      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+    } catch (ResourceAccessException ra) {
+      log.error("Service API indisponible : {}", ra.getMessage());
+      throw new CodeCaseWebException(ra.getMessage());
     }
   }
 
@@ -63,18 +68,22 @@ public class PostService {
    *<p>Renvoie un Post avec l'id spécifié</p>
    * @param id L'id du Post cherché
    * @return Le Post
+   * @throws CodeCaseWebException
    */
-  public Post getPost(int id) {
+  public Post getPost(int id) throws CodeCaseWebException{
     try {
       return postRepository.getPost(id);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
+      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new ResponseStatusException(sx.getStatusCode(), "Erreur serveur API");
+      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+    } catch (ResourceAccessException ra) {
+      log.error("Service API indisponible : {}", ra.getMessage());
+      throw new CodeCaseWebException(ra.getMessage());
     }
   }
 
@@ -86,18 +95,22 @@ public class PostService {
    *<hr>
    *<p>Supprime le Post avec l'id spécifié, ne renvoie rien</p>
    * @param id L'id du Post à supprimer
+   * @throws CodeCaseWebException
    */
-  public void deletePost(int id) {
+  public void deletePost(int id) throws CodeCaseWebException{
     try {
       postRepository.deletePost(id);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
+      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new ResponseStatusException(sx.getStatusCode(), "Erreur serveur API");
+      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+    } catch (ResourceAccessException ra) {
+      log.error("Service API indisponible : {}", ra.getMessage());
+      throw new CodeCaseWebException(ra.getMessage());
     }
   }
 
@@ -110,18 +123,22 @@ public class PostService {
    *<p>Renvoie le Post une fois créé dans la BDD</p>
    * @param post Le Post à créer
    * @return Le Post créé
+   * @throws CodeCaseWebException
    */
-  public Post createPost(Post post) {
+  public Post createPost(Post post) throws CodeCaseWebException{
     try {
       return postRepository.createPost(post);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new ResponseStatusException(cx.getStatusCode(), "API inaccessible");
+      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new ResponseStatusException(sx.getStatusCode(), "Erreur serveur API");
+      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+    } catch (ResourceAccessException ra) {
+      log.error("Service API indisponible : {}", ra.getMessage());
+      throw new CodeCaseWebException(ra.getMessage());
     }
   }
 

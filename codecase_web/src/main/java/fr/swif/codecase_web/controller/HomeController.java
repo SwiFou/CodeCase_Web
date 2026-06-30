@@ -1,5 +1,6 @@
 package fr.swif.codecase_web.controller;
 
+import fr.swif.codecase_web.exception.CodeCaseWebException;
 import fr.swif.codecase_web.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -38,7 +39,7 @@ public class HomeController {
    * @return La page d'accueil
    */
   @GetMapping("/")
-  public String home(Model model) {
+  public String home(Model model) throws CodeCaseWebException {
     model.addAttribute("Posts", postService.getPosts());
     return "index";
   }

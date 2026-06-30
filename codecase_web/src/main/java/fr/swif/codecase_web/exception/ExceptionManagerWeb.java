@@ -3,6 +3,7 @@ package fr.swif.codecase_web.exception;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 /**
  * ExceptionManagerWeb
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
  * @since 29/06/2026
  */
 
-// 0ControllerAdvice permet d'intercepter les exceptions levées par les
+// @ControllerAdvice permet d'intercepter les exceptions levées par les
 // controllers et ainsi de retourner n'importe quel type de réponse, ici des
 // vues Thymeleaf
 @ControllerAdvice
@@ -39,13 +40,32 @@ public class ExceptionManagerWeb {
   // exceptions traitées en paramètre
   @ExceptionHandler(CodeCaseWebException.class)
   public String handleCodeCaseWebException(CodeCaseWebException codeCaseWebException, Model model) {
-    model.addAttribute("codeStatus", codeCaseWebException.getStatus());
+    model.addAttribute("codeStatus", codeCaseWebException.getStatusCode());
     model.addAttribute("message", codeCaseWebException.getMessage());
 
     return "erreur";
   }
 
+  /**
+   * Méthode handleExceptions(NoResourceFoundException noResourceFoundException, Model model)
+   *
+   *<i>de ExceptionManagerWeb</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Méthode qui gère les erreurs de requête où la ressource est introuvable</p>
+   * @param noResourceFoundException Le type d'exception
+   * @param model Le code status et le message renvoyé
+   * @return La page erreur
+   */
+  // @ExceptionHandler permet de définir la logique pour traiter et répondre aux
+  // exceptions traitées en paramètre
+  @ExceptionHandler(NoResourceFoundException.class)
+  public String handleExceptions(NoResourceFoundException noResourceFoundException, Model model) {
+    model.addAttribute("codeStatus", noResourceFoundException.getStatusCode());
+    model.addAttribute("message", noResourceFoundException.getMessage());
 
+    return "erreur";
+  }
 
   /**
    * Méthode handleExceptions(Exception exception, Model model)

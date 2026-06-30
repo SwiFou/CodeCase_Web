@@ -1,5 +1,6 @@
 package fr.swif.codecase_web.controller;
 
+import fr.swif.codecase_web.exception.CodeCaseWebException;
 import fr.swif.codecase_web.model.User;
 import fr.swif.codecase_web.service.PostService;
 import fr.swif.codecase_web.service.UserService;
@@ -8,9 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -50,7 +49,8 @@ public class EspaceUserController {
    * @return La page espaceUser
    */
   @GetMapping("/espaceUser")
-  public String login(@RequestParam String userMail, Model model) {
+  public String login(@RequestParam String userMail, Model model)
+      throws CodeCaseWebException {
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     User user = userService.getUserByMail(userMail);
     model.addAttribute("user", user);
@@ -75,7 +75,7 @@ public class EspaceUserController {
   // et POST
   @PostMapping("/saveEmail")
   public ModelAndView saveEmail(@ModelAttribute("user") User user,
-      RedirectAttributes redirectAttributes) {
+      RedirectAttributes redirectAttributes) throws CodeCaseWebException {
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     user.setUserEmail(user.getUserEmail());
     userService.updateUser(user);
@@ -104,7 +104,7 @@ public class EspaceUserController {
   // et POST
   @PostMapping("/saveAvatar")
   public ModelAndView saveAvatar(@ModelAttribute("user") User user,
-      RedirectAttributes redirectAttributes) {
+      RedirectAttributes redirectAttributes) throws CodeCaseWebException {
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     user.setUserAvatar(user.getUserAvatar());
     userService.updateUser(user);
@@ -133,7 +133,7 @@ public class EspaceUserController {
   // et POST
   @PostMapping("/saveMdp")
   public ModelAndView saveMdp(@ModelAttribute("user") User user,
-      RedirectAttributes redirectAttributes) {
+      RedirectAttributes redirectAttributes) throws CodeCaseWebException {
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     user.setUserMdp(user.getUserMdp());
     userService.updateUser(user);
