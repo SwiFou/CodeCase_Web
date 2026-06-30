@@ -1,8 +1,21 @@
+
+/* CSS en Nesting */
+
+/* Les pseudo-éléments, les ::, servent à cibler une partie spécifique d'un
+élément HTML qui n'existe pas réellement dans le DOM (Document Object Model),
+mais que le navigateur peut identifier visuellement */
+
+/* root est l'élément racine du document, ici <html> */
 :root {
+  /* box-sizing définit la façon dont la largeur totale et la hauteur totale d'un
+  élément sont calculées, ici <html> */
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  /* accent-color définit la couleur d'accentuation de certains éléments
+  (checkboxes, bouton radio, etc.) */
   accent-color: var(--color-jaune);
+  /* selection est un pseudo-élément qui cible la couleur de sélection du texte */
   ::selection {
     background-color: var(--color-jaune);
     color: var(--color-gris-100);
