@@ -54,6 +54,10 @@ mais que le navigateur peut identifier visuellement */
   /* Echelle de base du navigateur par défaut 16px */
   /* Format : clamp(taille minimale, valeur variable, taille maximale */
 
+  /* clamp permet de définir une valeur (taille de police, largeur, marge,
+   etc.) qui s'adapte automatiquement entre un minimum et un maximum, selon la
+   taille de l'écran */
+
   --h1-size: clamp(2rem, 3vw + 1rem, 3rem);
   --h2-size: clamp(1.5rem, 2vw + 1rem, 2rem);
   --h3-size: clamp(1.25rem, 2vw + 1rem, 1.5rem);
