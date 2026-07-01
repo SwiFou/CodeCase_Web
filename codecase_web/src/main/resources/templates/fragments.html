@@ -41,7 +41,10 @@
 <!--    </div>-->
 <!--  </header>-->
 <!--!</div>-->
+<!-- Fragment pour les posts affichés dans l'accueil -->
 
+<!-- Les th:text permet d'injecter le texte de la balise HTML concernée et
+d'échapper le contenu HTML-->
 <div th:fragment="case(post)">
   <article>
     <div class ="article-header">
@@ -54,8 +57,7 @@
             <span th:text ="${post.userId}"></span>
           </div>
           <div class ="datePostCase">
-            <!--! Trouver un moyen de mettre la vraie valeur heures/minutes-->
-            <span th:text = "${post.postDateCreation}">il y a 35 min</span>
+            <span th:text = "${post.postDateCreation}"></span>
           </div>
         </div>
       </div>
@@ -65,10 +67,12 @@
     </div>
     <div class ="article-title" th:text="${post.postTitre}"></div>
     <div class="article-description" th:text="${post.postDescription}"></div>
-    <div class="article-container" th:text="${post.postContenu}"></div>
+    <!-- Les balises <pre> et <code> permettent de mettre en forme du
+    code proprement-->
+    <pre class="article-container"><code th:text="${post.postContenu}"></code></pre>
     <div class="article-footer">
       <span><a class="bt-like" data-action ="like" href=""></a></span>
-      <span><a class="bt-flag" data-action ="flag" href=""></a></span>
+      <span><a class="bt-flag" data-action ="favoris" href=""></a></span>
     </div>
   </article>
 </div>
@@ -109,7 +113,9 @@
 
 <div th:fragment="footer">
   <footer>
-    <a href="" alt = "Mentions légales">Mentions légales</a> | <a href="" alt ="Politique de gestion des données personnelles">politiques de protections des données</a> | <a href="" alt="Politique d'accessibilité">politique d’accessibilité</a>
+    <a href="" alt = "Mentions légales">Mentions légales</a> |
+    <a href="" alt ="Politique de gestion des données personnelles">Politiques de protections des données</a> |
+    <a href="" alt="Politique d'accessibilité">Politique d’accessibilité</a>
   </footer>
 </div>
 

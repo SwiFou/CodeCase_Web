@@ -152,9 +152,9 @@ html, body {
         width: 82%;
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
+        flex-wrap: nowrap;      /* pas de wrap souhaité ici */
         justify-content: flex-start;
-        align-content: center;
+        align-items: stretch;   /* explicite : les enfants prennent toute la largeur */
         gap: 20px;
       }
     }
@@ -172,10 +172,11 @@ html, body {
 
     article {
       font-family: var(--source), sans-serif;
-      max-width: 1200px;
-      width: 82%;
+      max-width: clamp(280px, 90vw, 1200px);
+      box-sizing: border-box;
+      width: 100%;
       border-radius: 20px;
-      padding: clamp(1rem, 20px, 1.5rem);
+      padding: clamp(1rem, 4vw, 1.5rem);
       background-color: var(--color-gris-20);
       border: 2px solid var(--color-blanc);
       display: flex;
@@ -281,7 +282,7 @@ html, body {
       .article-description {
         width: 88%;
         font-family: var(--inter), sans-serif;
-        text-align: center;
+        text-align: left;
         color: var(--color-gris-80);
         font-size: clamp(0.3rem, 0.8rem, 1.3rem);
         white-space: pre-wrap;
@@ -295,6 +296,7 @@ html, body {
         color: var(--color-gris-100);
         font-size: clamp(0.5rem, 1rem, 1.5rem);
         white-space: pre-wrap;
+        margin: 0;
       }
       .article-footer {
         width: 100%;
@@ -543,7 +545,7 @@ html, body {
   content: "\f2f5";
 }
 
-/* bouton flag */
+/* bouton favoris */
 
 .bt-flag {
   background-color: var(--color-orange-fonce);
