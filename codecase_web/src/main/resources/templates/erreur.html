@@ -6,8 +6,13 @@
 
 <body>
 <main>
-  <h1 th:text="${codeStatus}">Erreur</h1>
-  <p th:text="${message}">Une erreur est survenue.</p>
+  <div>
+    <h1 th:text="${codeStatus}">Erreur</h1>
+  </div>
+  <div>
+    <p th:text="${message}">Une erreur est survenue.</p>
+  </div>
+
 </main>
 <div th:insert="fragments :: footer"></div>
 

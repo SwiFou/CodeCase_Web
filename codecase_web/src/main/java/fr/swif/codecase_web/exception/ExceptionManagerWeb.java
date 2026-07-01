@@ -1,5 +1,6 @@
 package fr.swif.codecase_web.exception;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,6 +21,7 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 // @ControllerAdvice permet d'intercepter les exceptions levées par les
 // controllers et ainsi de retourner n'importe quel type de réponse, ici des
 // vues Thymeleaf
+@Slf4j
 @ControllerAdvice
 public class ExceptionManagerWeb {
 
@@ -62,7 +64,8 @@ public class ExceptionManagerWeb {
   @ExceptionHandler(NoResourceFoundException.class)
   public String handleExceptions(NoResourceFoundException noResourceFoundException, Model model) {
     model.addAttribute("codeStatus", noResourceFoundException.getStatusCode());
-    model.addAttribute("message", noResourceFoundException.getMessage());
+    model.addAttribute("message", "La page que vous "
+        + "recherchez n'existe pas");
 
     return "erreur";
   }
@@ -83,7 +86,9 @@ public class ExceptionManagerWeb {
   // exceptions traitées en paramètre
   @ExceptionHandler(Exception.class)
   public String handleExceptions(Exception exception, Model model) {
-    model.addAttribute("message", exception.getMessage());
+    log.error("Erreur inattendue : ", exception);
+    model.addAttribute("message", "Une erreur inattendue"
+        + " est survenue. Merci de réessayer plus tard");
 
     return "erreur";
   }

@@ -50,13 +50,17 @@ public class UserService {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "Impossible de "
+          + "récupérer la liste des utilisateurs.");
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors du chargement des utilisateurs. "
+          + "Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
-      throw new CodeCaseWebException(ra.getMessage());
+      throw new CodeCaseWebException("Le service est temporairement "
+          + "indisponible. Merci de réessayer plus tard.");
     }
   }
 
@@ -78,13 +82,17 @@ public class UserService {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "L'utilisateur "
+          + "demandé n'existe pas ou n'est plus disponible.");
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors de la récupération de l'utilisateur. "
+          + "Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
-      throw new CodeCaseWebException(ra.getMessage());
+      throw new CodeCaseWebException("Le service est temporairement "
+          + "indisponible. Merci de réessayer plus tard.");
     }
   }
 
@@ -106,13 +114,17 @@ public class UserService {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "Aucun utilisateur "
+          + "trouvé avec ce pseudo.");
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors de la recherche de l'utilisateur. "
+          + "Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
-      throw new CodeCaseWebException(ra.getMessage());
+      throw new CodeCaseWebException("Le service est temporairement "
+          + "indisponible. Merci de réessayer plus tard.");
     }
   }
 
@@ -134,13 +146,17 @@ public class UserService {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "Aucun utilisateur "
+          + "trouvé avec cette adresse e-mail.");
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors de la recherche de l'utilisateur. "
+          + "Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
-      throw new CodeCaseWebException(ra.getMessage());
+      throw new CodeCaseWebException("Le service est temporairement "
+          + "indisponible. Merci de réessayer plus tard.");
     }
   }
 
@@ -161,13 +177,17 @@ public class UserService {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "Ce compte n'existe "
+          + "pas ou a déjà été supprimé.");
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors de la suppression du compte. "
+          + "Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
-      throw new CodeCaseWebException(ra.getMessage());
+      throw new CodeCaseWebException("Le service est temporairement "
+          + "indisponible. Merci de réessayer plus tard.");
     }
   }
 
@@ -189,13 +209,18 @@ public class UserService {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "Votre inscription "
+          + "n'a pas pu être finalisée. "
+          + "Merci de vérifier les informations saisies.");
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors de la création de votre compte. "
+          + "Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
-      throw new CodeCaseWebException(ra.getMessage());
+      throw new CodeCaseWebException("Le service est temporairement "
+          + "indisponible. Merci de réessayer plus tard.");
     }
   }
 
@@ -217,13 +242,18 @@ public class UserService {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "Vos informations "
+          + "n'ont pas pu être mises à jour. "
+          + "Merci de vérifier les données saisies.");
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors de la mise à jour de votre profil. "
+          + "Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
-      throw new CodeCaseWebException(ra.getMessage());
+      throw new CodeCaseWebException("Le service est temporairement "
+          + "indisponible. Merci de réessayer plus tard.");
     }
   }
 
@@ -244,13 +274,17 @@ public class UserService {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "Impossible "
+          + "d'anonymiser ce compte utilisateur.");
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors de l'anonymisation du compte. "
+          + "Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
-      throw new CodeCaseWebException(ra.getMessage());
+      throw new CodeCaseWebException("Le service est temporairement "
+          + "indisponible. Merci de réessayer plus tard.");
     }
   }
 

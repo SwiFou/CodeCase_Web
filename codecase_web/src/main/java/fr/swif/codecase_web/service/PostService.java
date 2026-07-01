@@ -49,13 +49,16 @@ public class PostService {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "Impossible de "
+          + "récupérer la liste des posts.");
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors du chargement des posts. Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
-      throw new CodeCaseWebException(ra.getMessage());
+      throw new CodeCaseWebException("Le service est temporairement "
+          + "indisponible. Merci de réessayer plus tard.");
     }
   }
 
@@ -77,13 +80,17 @@ public class PostService {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "Le post demandé "
+          + "n'existe pas ou n'est plus disponible.");
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors de la récupération du post. "
+          + "Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
-      throw new CodeCaseWebException(ra.getMessage());
+      throw new CodeCaseWebException("Le service est temporairement "
+          + "indisponible. Merci de réessayer plus tard.");
     }
   }
 
@@ -104,13 +111,17 @@ public class PostService {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "Ce post n'existe pas "
+          + "ou a déjà été supprimé.");
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors de la suppression du post. "
+          + "Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
-      throw new CodeCaseWebException(ra.getMessage());
+      throw new CodeCaseWebException("Une erreur est survenue lors de la "
+          + "suppression du post.");
     }
   }
 
@@ -132,13 +143,17 @@ public class PostService {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
       log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
-      throw new CodeCaseWebException(cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "Votre demande n'a "
+          + "pas pu être traitée. Merci de vérifier les informations saisies.");
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
-      throw new CodeCaseWebException(sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors de la publication de votre post. "
+          + "Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
-      throw new CodeCaseWebException(ra.getMessage());
+      throw new CodeCaseWebException("Une erreur est survenue lors de la "
+          + "publication de votre post.");
     }
   }
 
