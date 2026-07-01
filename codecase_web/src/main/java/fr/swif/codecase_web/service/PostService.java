@@ -54,7 +54,8 @@ public class PostService {
     } catch (HttpServerErrorException sx) {
       log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
       throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
-          + "survenue lors du chargement des posts. Merci de réessayer plus tard.");
+          + "survenue lors du chargement des posts. "
+          + "Merci de réessayer plus tard.");
     } catch (ResourceAccessException ra) {
       log.error("Service API indisponible : {}", ra.getMessage());
       throw new CodeCaseWebException("Le service est temporairement "

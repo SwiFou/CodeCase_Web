@@ -62,7 +62,8 @@ public class UserRepository {
         getUsersUrl, // L'URL
         HttpMethod.GET, // La méthode HTTP
         null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
-        new ParameterizedTypeReference<>() {} // le type de retour ici ParameterizedTypeReference car c'est un Iterable
+        new ParameterizedTypeReference<>() {} // le type de retour ici
+        // ParameterizedTypeReference car c'est un Iterable
     );
     log.debug("Get Users " + response.getStatusCode());
 

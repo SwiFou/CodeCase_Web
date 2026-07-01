@@ -732,4 +732,76 @@ form {
 
 }
 
+.grand-form {
+  display: grid;
+  grid-auto-flow: row;
+  justify-content: start;
+  gap: 10px;
 
+  label {
+    font-family: var(--inter), sans-serif;
+    font-size: clamp(0.5rem, 1rem, 1.5rem);
+    color: var(--color-gris-100);
+    font-weight: 500;
+    padding-left: 10px;
+  }
+
+  input {
+    accent-color: var(--color-jaune);
+    outline: none;
+    display : grid;
+    border : 2px solid var(--color-blanc);
+    background-color: var(--color-gris-40);
+    border-radius: 20px;
+    padding : 0 20px 0 20px;
+    height: 40px;
+    width: max-content;
+  }
+
+  input:focus {
+    border-color: var(--color-jaune);
+  }
+
+  [type="submit"] {
+    display: grid;
+    border-radius: 20px;
+    border : 2px solid var(--color-blanc);
+    padding : 0 20px 0 20px;
+    height: 40px;
+    width: max-content;
+    outline: none;
+    background-color: var(--color-vert);
+    color: var(--color-gris-00);
+    text-transform: uppercase;
+    place-content: center;
+  }
+
+  textarea {
+    display : grid;
+    border : 2px solid var(--color-blanc);
+    background-color: var(--color-gris-40);
+    border-radius: 20px;
+    padding : 0 20px 0 20px;
+    height: 40px;
+    width: max-content;
+    accent-color: var(--color-jaune);
+    outline: none;
+  }
+
+  select {
+    display : grid;
+    border : 2px solid var(--color-blanc);
+    background-color: var(--color-gris-40);
+    border-radius: 20px;
+    padding : 0 20px 0 20px;
+    height: 40px;
+    width: max-content;
+    accent-color: var(--color-jaune);
+    outline: none;
+  }
+
+
+  select:focus {
+    border-color: var(--color-jaune);
+  }
+}

@@ -72,7 +72,7 @@ public class PostController {
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     post.setUserId(userService.getUser(1));
     post.setPostDateCreation(LocalDateTime.now());
-
+    //! Traiter les validations et les annotations (@Valid ou @Validate) pour que les erreurs n'arrivent pas jusqu'à l'api
     postService.createPost(post);
     return new ModelAndView("redirect:/");
   }
