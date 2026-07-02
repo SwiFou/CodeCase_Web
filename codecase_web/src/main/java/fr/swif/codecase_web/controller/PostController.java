@@ -2,6 +2,7 @@ package fr.swif.codecase_web.controller;
 
 import fr.swif.codecase_web.exception.CodeCaseWebException;
 import fr.swif.codecase_web.model.Post;
+import fr.swif.codecase_web.service.LangageService;
 import fr.swif.codecase_web.service.PostService;
 import fr.swif.codecase_web.service.UserService;
 import jakarta.validation.Valid;
@@ -37,6 +38,7 @@ public class PostController {
   private final PostService postService;
 
   private final UserService userService;
+  private final LangageService langageService;
 
   /**
    * Méthode formulaire
@@ -49,9 +51,10 @@ public class PostController {
    * @return La page creationPost
    */
   @GetMapping("/creationPost")
-  public String formulaire(Model model) {
+  public String formulaire(Model model) throws CodeCaseWebException{
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     model.addAttribute("post", new Post());
+    model.addAttribute("langage", langageService.getLangages());
     return "creationPost";
   }
 
