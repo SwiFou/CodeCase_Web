@@ -2,7 +2,6 @@ package fr.swif.codecase_web.repository;
 
 import fr.swif.codecase_web.config.CustomProperties;
 import fr.swif.codecase_web.model.Langage;
-import fr.swif.codecase_web.model.Post;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;

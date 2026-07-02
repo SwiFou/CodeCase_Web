@@ -15,24 +15,26 @@
           <div class="form-group">
             <input type="text" th:field="*{postTitre}" placeholder="Titre du post"/>
           </div>
+          <!--! Changer la div et en ajouter pour afficher les erreurs de chaque champ à l'utilisateur -->
+<!--          <div class="validation-error" th:if="${#fields.hasErrors('numRue')}" th:errors="*{numRue}">Numéro de rue Error</div>-->
           <div class="form-group">
             <input type="text" th:field="*{postDescription}" placeholder="Description"/>
           </div>
           <div class="form-group">
             <!--! Changer les variables Langage (Voir avec les controller)-->
-            <select name="tagId">
+            <select name="langageId">
               <option>Langage</option>
-              <option th:each="tag: ${tags}"
-                      th:value="${tag.idTag}" th:text="${tag.intituleTag}">
+              <option th:each="langage: ${langages}"
+                      th:value="${langage.langageId}" th:text="${langage.langageIntitule}">
               </option>
             </select>
           </div>
           <div class="form-group">
             <!--! Changer les variables Outils & Technologies (Voir avec les controller)-->
-            <select name="technoId">
+            <select name="technologieId">
               <option>Outils & Technologies</option>
-              <option th:each="tag: ${tags}"
-                      th:value="${tag.idTag}" th:text="${tag.intituleTag}">
+              <option th:each="technologie: ${technologies}"
+                      th:value="${technologie.technologieId}" th:text="${technologie.technologieIntitule}">
               </option>
             </select>
           </div>
@@ -40,7 +42,7 @@
           <div class="form-group">
             <input type="text" th:field="*{postDescription}" placeholder="Créer un Outil et/ou une Technologie"/>
           </div>
-          
+
           <div class="grand-form">
             <textarea th:field="*{postContenu}" placeholder="Code"></textarea>
           </div>

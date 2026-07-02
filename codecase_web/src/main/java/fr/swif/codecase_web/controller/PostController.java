@@ -4,12 +4,14 @@ import fr.swif.codecase_web.exception.CodeCaseWebException;
 import fr.swif.codecase_web.model.Post;
 import fr.swif.codecase_web.service.LangageService;
 import fr.swif.codecase_web.service.PostService;
+import fr.swif.codecase_web.service.TechnologieService;
 import fr.swif.codecase_web.service.UserService;
 import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +40,10 @@ public class PostController {
   private final PostService postService;
 
   private final UserService userService;
+
   private final LangageService langageService;
+
+  private final TechnologieService technologieService;
 
   /**
    * Méthode formulaire
@@ -54,7 +59,8 @@ public class PostController {
   public String formulaire(Model model) throws CodeCaseWebException{
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     model.addAttribute("post", new Post());
-    model.addAttribute("langage", langageService.getLangages());
+    model.addAttribute("langages", langageService.getLangages());
+    model.addAttribute("technologies", technologieService.getTechnologies());
     return "creationPost";
   }
 
@@ -70,12 +76,17 @@ public class PostController {
    * @return La page d'accueil
    */
   @PostMapping("/createPost")
-  public ModelAndView savePost(@Valid @ModelAttribute("post") Post post)
+  public ModelAndView savePost(BindingResult bindingResult, @ModelAttribute("post") @Valid Post post)
       throws CodeCaseWebException {
     //! TEMPORAIRE POUR L'ID
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     post.setUserId(userService.getUser(1));
     post.setPostDateCreation(LocalDateTime.now());
+    //! Important pour retourner la page initiale s'il y a des erreurs
+    if(bindingResult.hasErrors()) {
+      return new ModelAndView("creationPost");
+    }
+
     //! Traiter les validations et les annotations (@Valid) pour que les erreurs n'arrivent pas jusqu'à l'api
     postService.createPost(post);
     return new ModelAndView("redirect:/");

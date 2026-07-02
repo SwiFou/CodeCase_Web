@@ -31,7 +31,7 @@ import org.springframework.web.client.ResourceAccessException;
 @RequiredArgsConstructor
 public class LangageService {
 
-  private LangageRepository langageRepository;
+  private final LangageRepository langageRepository;
 
   /**
    * Méthode getLangages
