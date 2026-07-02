@@ -53,14 +53,14 @@ public class Post {
   private User userId;
 
   /**
-   * Variable langageId de type langage
+   * Variable langageId de type Langage
    */
   private Langage langageId;
 
   /**
-   * Variable tagCustom, dans une Arraylist de type Tag
+   * Variable technologieId de type Technologie
    */
-//  Set<Tag> tagCustom;
+  private Technologie technologieId;
 
   /**
    * Variable creationDatePost

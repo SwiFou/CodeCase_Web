@@ -13,44 +13,36 @@
       <div class="article-container">
         <form method="post" th:action="@{/createPost}" th:object="${post}">
           <div class="form-group">
-            <label>
-              Titre du post
-              <input type="text" th:field="*{postTitre}" placeholder="Titre du post"/>
-            </label>
+            <input type="text" th:field="*{postTitre}" placeholder="Titre du post"/>
           </div>
           <div class="form-group">
-            <label>
-              Description du post
-              <input type="text" th:field="*{postDescription}" placeholder="Description"/>
-            </label>
+            <input type="text" th:field="*{postDescription}" placeholder="Description"/>
           </div>
           <div class="form-group">
-            <label>
-              Langage dans lequel est écrit le code du post
-              <select name="tagId">
-                <option>Langage</option>
-                <option th:each="tag: ${tags}"
-                        th:value="${tag.idTag}" th:text="${tag.intituleTag}">
-                </option>
-              </select>
-            </label>
+            <!--! Changer les variables Langage (Voir avec les controller)-->
+            <select name="tagId">
+              <option>Langage</option>
+              <option th:each="tag: ${tags}"
+                      th:value="${tag.idTag}" th:text="${tag.intituleTag}">
+              </option>
+            </select>
           </div>
           <div class="form-group">
-            <label>
-              Les outils et technologies du code du post
-              <select name="technoId">
-                <option>Outils & Technologies</option>
-                <option th:each="tag: ${tags}"
-                        th:value="${tag.idTag}" th:text="${tag.intituleTag}">
-                </option>
-              </select>
-            </label>
+            <!--! Changer les variables Outils & Technologies (Voir avec les controller)-->
+            <select name="technoId">
+              <option>Outils & Technologies</option>
+              <option th:each="tag: ${tags}"
+                      th:value="${tag.idTag}" th:text="${tag.intituleTag}">
+              </option>
+            </select>
           </div>
+          <!--! Changer les variables Outils & Technologies (Voir avec les controller)-->
+          <div class="form-group">
+            <input type="text" th:field="*{postDescription}" placeholder="Créer un Outil et/ou une Technologie"/>
+          </div>
+          
           <div class="grand-form">
-            <label>
-              Code
-              <textarea th:field="*{postContenu}" placeholder="Code"></textarea>
-            </label>
+            <textarea th:field="*{postContenu}" placeholder="Code"></textarea>
           </div>
 
           <button type="submit">Valider</button>

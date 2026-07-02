@@ -4,6 +4,7 @@ import fr.swif.codecase_web.exception.CodeCaseWebException;
 import fr.swif.codecase_web.model.User;
 import fr.swif.codecase_web.service.PostService;
 import fr.swif.codecase_web.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,7 +50,7 @@ public class EspaceUserController {
    * @return La page espaceUser
    */
   @GetMapping("/espaceUser")
-  public String login(@RequestParam String userMail, Model model)
+  public String login(@Valid @RequestParam String userMail, Model model)
       throws CodeCaseWebException {
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     User user = userService.getUserByMail(userMail);
@@ -74,7 +75,7 @@ public class EspaceUserController {
   // car les formulaires en HTML classiques ne supprortent que les méthodes GET
   // et POST
   @PostMapping("/saveEmail")
-  public ModelAndView saveEmail(@ModelAttribute("user") User user,
+  public ModelAndView saveEmail(@Valid @ModelAttribute("user") User user,
       RedirectAttributes redirectAttributes) throws CodeCaseWebException {
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     user.setUserEmail(user.getUserEmail());
@@ -103,7 +104,7 @@ public class EspaceUserController {
   // car les formulaires en HTML classiques ne supprortent que les méthodes GET
   // et POST
   @PostMapping("/saveAvatar")
-  public ModelAndView saveAvatar(@ModelAttribute("user") User user,
+  public ModelAndView saveAvatar(@Valid @ModelAttribute("user") User user,
       RedirectAttributes redirectAttributes) throws CodeCaseWebException {
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     user.setUserAvatar(user.getUserAvatar());
@@ -132,7 +133,7 @@ public class EspaceUserController {
   // car les formulaires en HTML classiques ne supprortent que les méthodes GET
   // et POST
   @PostMapping("/saveMdp")
-  public ModelAndView saveMdp(@ModelAttribute("user") User user,
+  public ModelAndView saveMdp(@Valid @ModelAttribute("user") User user,
       RedirectAttributes redirectAttributes) throws CodeCaseWebException {
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     user.setUserMdp(user.getUserMdp());

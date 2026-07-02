@@ -4,6 +4,7 @@ import fr.swif.codecase_web.exception.CodeCaseWebException;
 import fr.swif.codecase_web.model.Post;
 import fr.swif.codecase_web.service.PostService;
 import fr.swif.codecase_web.service.UserService;
+import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -66,13 +67,13 @@ public class PostController {
    * @return La page d'accueil
    */
   @PostMapping("/createPost")
-  public ModelAndView savePost(@ModelAttribute("post") Post post)
+  public ModelAndView savePost(@Valid @ModelAttribute("post") Post post)
       throws CodeCaseWebException {
     //! TEMPORAIRE POUR L'ID
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     post.setUserId(userService.getUser(1));
     post.setPostDateCreation(LocalDateTime.now());
-    //! Traiter les validations et les annotations (@Valid ou @Validate) pour que les erreurs n'arrivent pas jusqu'à l'api
+    //! Traiter les validations et les annotations (@Valid) pour que les erreurs n'arrivent pas jusqu'à l'api
     postService.createPost(post);
     return new ModelAndView("redirect:/");
   }
