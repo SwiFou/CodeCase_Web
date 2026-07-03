@@ -3,7 +3,6 @@
 <head th:insert="fragments :: htmlHead">
   <title>Création d'un post</title>
 </head>
-<!--! Changer les variables Langage et Outils & Technologies (Voir avec les controller)-->
 <body>
 <div th:insert="fragments :: headerContent"></div>
 <main>
@@ -16,36 +15,40 @@
             <input type="text" th:field="*{postTitre}" placeholder="Titre du post"/>
           </div>
           <!--! Changer la div et en ajouter pour afficher les erreurs de chaque champ à l'utilisateur -->
-<!--          <div class="validation-error" th:if="${#fields.hasErrors('numRue')}" th:errors="*{numRue}">Numéro de rue Error</div>-->
+          <div class="validation-error" th:if="${#fields.hasErrors('postTitre')}" th:errors="*{postTitre}">Erreur titre</div>
+
           <div class="form-group">
             <input type="text" th:field="*{postDescription}" placeholder="Description"/>
           </div>
+          <div class="validation-error" th:if="${#fields.hasErrors('postDescription')}" th:errors="*{postDescription}">Erreur description</div>
           <div class="form-group">
-            <!--! Changer les variables Langage (Voir avec les controller)-->
-            <select name="langageId">
-              <option>Langage</option>
+            <select name="idLangage">
+              <!-- value="" permet d'éviter d'envoyer la valeur par défaut dans la BDD -->
+              <option value="">Langage</option>
               <option th:each="langage: ${langages}"
                       th:value="${langage.langageId}" th:text="${langage.langageIntitule}">
               </option>
             </select>
           </div>
+          <div class="validation-error" th:if="${#fields.hasErrors('langageId')}" th:errors="*{langageId}">Erreur langage</div>
           <div class="form-group">
-            <!--! Changer les variables Outils & Technologies (Voir avec les controller)-->
-            <select name="technologieId">
-              <option>Outils & Technologies</option>
+            <select name="idTechnologie">
+              <!-- value="" permet d'éviter d'envoyer la valeur par défaut dans la BDD -->
+              <option value="">Outils & Technologies</option>
               <option th:each="technologie: ${technologies}"
                       th:value="${technologie.technologieId}" th:text="${technologie.technologieIntitule}">
               </option>
             </select>
           </div>
-          <!--! Changer les variables Outils & Technologies (Voir avec les controller)-->
+          <div class="validation-error" th:if="${#fields.hasErrors('technologieId')}" th:errors="*{technologieId}">Erreur technologie</div>
           <div class="form-group">
-            <input type="text" th:field="*{postDescription}" placeholder="Créer un Outil et/ou une Technologie"/>
+            <input type="text" name="nouvelleTechnologieIntitule" placeholder="Créer un Outil et/ou une Technologie"/>
           </div>
 
           <div class="grand-form">
             <textarea th:field="*{postContenu}" placeholder="Code"></textarea>
           </div>
+          <div class="validation-error" th:if="${#fields.hasErrors('postContenu')}" th:errors="*{postContenu}">Erreur contenu</div>
 
           <button type="submit">Valider</button>
 

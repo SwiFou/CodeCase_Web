@@ -66,6 +66,39 @@ public class TechnologieRepository {
   }
 
   /**
+   * Méthode getTechnologie
+   *
+   *<i>de TechnologieRepository</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie une Technologie avec l'id spécifié</p>
+   * @param id L'id de la Technologie cherchée
+   * @return La Technologie
+   */
+  public Technologie getTechnologie(int id) {
+    String BASE_API_URL = props.getApiUrl();
+    String getTechnologieUrl = BASE_API_URL + "/technologie/" + id;
+
+    // RestTemplate permet d'exécuter une requête HTTP, en fournissant l'URL, le
+    // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
+    // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
+    RestTemplate restTemplate = new RestTemplate();
+    // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
+    // exchange permet de transmettre :
+    ResponseEntity<Technologie> response = restTemplate.exchange(
+        getTechnologieUrl, // L'URL
+        HttpMethod.GET, // La méthode HTTP
+        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        Technologie.class // Le type de retour ici Technologie.class car c'est un objet simple
+    );
+
+    log.debug("Get Technologie " + response.getStatusCode());
+
+    // On récupère l'objet grâce à la méthode getBody() de l'objet Response
+    return response.getBody();
+  }
+
+  /**
    * Méthode createTechnologie
    *
    *<i>de TechnologieRepository</i>
@@ -91,7 +124,7 @@ public class TechnologieRepository {
         createTechnologieUrl, // L'URL
         HttpMethod.POST, // La méthode HTTP
         request, // Le HttpEntity
-        Technologie.class // Le type de retour ici Post.class car c'est un objet simple
+        Technologie.class // Le type de retour ici Technologie.class car c'est un objet simple
     );
 
     log.debug("Create Technologie " + response.getStatusCode());

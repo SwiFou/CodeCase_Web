@@ -292,7 +292,7 @@ public class UserRepository {
         deleteUserUrl, // L'URL
         HttpMethod.DELETE, // La méthode HTTP
         null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
-        User.class // Le type de retour ici Post.class car c'est un objet simple
+        User.class // Le type de retour ici User.class car c'est un objet simple
     );
 
     log.debug("Delete User " + response.getStatusCode());

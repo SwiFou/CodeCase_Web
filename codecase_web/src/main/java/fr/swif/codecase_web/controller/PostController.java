@@ -2,6 +2,7 @@ package fr.swif.codecase_web.controller;
 
 import fr.swif.codecase_web.exception.CodeCaseWebException;
 import fr.swif.codecase_web.model.Post;
+import fr.swif.codecase_web.model.Technologie;
 import fr.swif.codecase_web.service.LangageService;
 import fr.swif.codecase_web.service.PostService;
 import fr.swif.codecase_web.service.TechnologieService;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -76,16 +78,34 @@ public class PostController {
    * @return La page d'accueil
    */
   @PostMapping("/createPost")
-  public ModelAndView savePost(BindingResult bindingResult, @ModelAttribute("post") @Valid Post post)
+  public ModelAndView savePost(@ModelAttribute("post") @Valid Post post,
+      BindingResult bindingResult,
+      /*@ModelAttribute("technologie") @Valid Technologie technologie,*/
+      @RequestParam("idLangage") String langageId,
+      @RequestParam("idTechnologie") String technologieId)
       throws CodeCaseWebException {
     //! TEMPORAIRE POUR L'ID
     //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
     post.setUserId(userService.getUser(1));
+
     post.setPostDateCreation(LocalDateTime.now());
+
+    post.setLangageId(langageService.getLangage(Integer.parseInt(langageId)));
+
+    post.setTechnologieId(technologieService.getTechnologie(Integer.parseInt(technologieId)));
+
     //! Important pour retourner la page initiale s'il y a des erreurs
     if(bindingResult.hasErrors()) {
       return new ModelAndView("creationPost");
     }
+
+    // S'il n'y a rien de sélectionné dans la liste déroulante de
+    // Outils & Technologies (ou si la sélection est toujours sur
+    // "Outils & Technologies") alors ça sauvegarde la saisie dans du champ
+    // "Créer un Outil et/ou une Technologie".
+//!    if() {}
+    // A METTRE DANS LE IF
+//    technologieService.createTechnologie(technologie);
 
     //! Traiter les validations et les annotations (@Valid) pour que les erreurs n'arrivent pas jusqu'à l'api
     postService.createPost(post);

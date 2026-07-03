@@ -64,4 +64,36 @@ public class LangageService {
     }
   }
 
+  /**
+   * Méthode getLangage
+   *
+   *<i>de LangageService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie un Langage avec l'id spécifié</p>
+   * @param id L'id du Langage cherché
+   * @return Le langage
+   * @throws CodeCaseWebException
+   */
+  public Langage getLangage(int id) throws CodeCaseWebException {
+    try {
+      return langageRepository.getLangage(id);
+    } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
+      log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "Le langage demandé "
+          + "n'existe pas ou n'est plus disponible.");
+    } catch (HttpServerErrorException sx) {
+      log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors du chargement du langage. "
+          + "Merci de réessayer plus tard.");
+    } catch (ResourceAccessException ra) {
+      log.error("Service API indisponible : {}", ra.getMessage());
+      throw new CodeCaseWebException("Le service est temporairement "
+          + "indisponible. Merci de réessayer plus tard.");
+    }
+  }
+
 }

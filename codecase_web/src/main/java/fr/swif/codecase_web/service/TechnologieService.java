@@ -65,6 +65,38 @@ public class TechnologieService {
   }
 
   /**
+   * Méthode getTechnologie
+   *
+   *<i>de TechnologieService</i>
+   *<h1></h1>
+   *<hr>
+   *<p>Renvoie une Technologie avec l'id spécifié</p>
+   * @param id L'id de la Technologie cherchée
+   * @return La Technologie
+   * @throws CodeCaseWebException
+   */
+  public Technologie getTechnologie(int id) throws CodeCaseWebException{
+    try {
+      return technologieRepository.getTechnologie(id);
+    } catch (HttpClientErrorException cx) {
+      // Les {} sont des placeholders : le code de statut et le message vont
+      // se placer dans les {}
+      log.error("Erreur API : {} - {}", cx.getStatusCode(), cx.getMessage());
+      throw new CodeCaseWebException(cx.getStatusCode(), "La technologie demandé "
+          + "n'existe pas ou n'est plus disponible.");
+    } catch (HttpServerErrorException sx) {
+      log.error("Erreur API : {} - {}", sx.getStatusCode(), sx.getMessage());
+      throw new CodeCaseWebException(sx.getStatusCode(), "Une erreur est "
+          + "survenue lors de la récupération de la technologie. "
+          + "Merci de réessayer plus tard.");
+    } catch (ResourceAccessException ra) {
+      log.error("Service API indisponible : {}", ra.getMessage());
+      throw new CodeCaseWebException("Le service est temporairement "
+          + "indisponible. Merci de réessayer plus tard.");
+    }
+  }
+
+  /**
    * Méthode
    *
    *<i>de TechnologieService</i>
