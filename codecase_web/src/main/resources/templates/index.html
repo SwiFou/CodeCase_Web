@@ -9,7 +9,7 @@
 <main>
   <div id="main-container">
 <!--    <a href="/">-->
-      <div  th:each="p, iterStat : ${Posts}" th:if="${iterStat.index < 6}">
+      <div  th:each="p, iterStat : ${Posts}" th:if="${iterStat.index < 10}">
         <div th:replace="~{fragments :: case(post=${p})}"></div>
       </div>
 <!--    </a>-->

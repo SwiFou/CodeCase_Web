@@ -59,7 +59,7 @@ public class PostController {
    */
   @GetMapping("/creationPost")
   public String formulaire(Model model) throws CodeCaseWebException{
-    //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
+    //! Faire en sorte de vérifier le token JWT du user avant toutes modifs
     model.addAttribute("post", new Post());
     model.addAttribute("langages", langageService.getLangages());
     model.addAttribute("technologies", technologieService.getTechnologies());
@@ -80,32 +80,75 @@ public class PostController {
   @PostMapping("/createPost")
   public ModelAndView savePost(@ModelAttribute("post") @Valid Post post,
       BindingResult bindingResult,
-      /*@ModelAttribute("technologie") @Valid Technologie technologie,*/
       @RequestParam("idLangage") String langageId,
-      @RequestParam("idTechnologie") String technologieId)
+      @RequestParam("idTechnologie") String technologieId,
+      @RequestParam(value = "nouvelleTechnologie", required = false)
+      String nouvelleTechnologieIntitule)
       throws CodeCaseWebException {
     //! TEMPORAIRE POUR L'ID
-    //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
+    //! Faire en sorte de vérifier le token JWT du user avant toutes modifs
     post.setUserId(userService.getUser(1));
 
     post.setPostDateCreation(LocalDateTime.now());
 
-    post.setLangageId(langageService.getLangage(Integer.parseInt(langageId)));
-
-    post.setTechnologieId(technologieService.getTechnologie(Integer.parseInt(technologieId)));
-
-    //! Important pour retourner la page initiale s'il y a des erreurs
-    if(bindingResult.hasErrors()) {
-      return new ModelAndView("creationPost");
+    // Les if permettent de contrôler si les champs langageId et technologieId
+    // (idLangage et idTechnologie dans la page creationPost), sont soit null ou
+    // vides, si c'est l'un ou l'autre, ça ajoutera une erreur manuelle grâce au
+    // rejectValue.
+    // S'il n'y avait pas ceux-ci, cela retournerait une erreur de type
+    // NumberFormatException à cause des value = "" dans le HTML
+    if(langageId == null || langageId.isBlank()) {
+      bindingResult.rejectValue("langageId", "langage.empty",
+          "Veuillez sélectionner un langage");
     }
 
+    boolean technologieIdVide = technologieId == null || technologieId.isBlank();
+    boolean nouvelleTechnologieVide = nouvelleTechnologieIntitule == null
+        || nouvelleTechnologieIntitule.isBlank();
+
+    Technologie technologieACreer = null;
+
     // S'il n'y a rien de sélectionné dans la liste déroulante de
-    // Outils & Technologies (ou si la sélection est toujours sur
-    // "Outils & Technologies") alors ça sauvegarde la saisie dans du champ
-    // "Créer un Outil et/ou une Technologie".
-//!    if() {}
-    // A METTRE DANS LE IF
-//    technologieService.createTechnologie(technologie);
+    // Outils & Technologies et que le champ "Nouvel Outil et/ou Technologie"
+    // est vide, alors il y a un message d'erreur communiqué à l'utilisateur.
+    if(technologieIdVide && nouvelleTechnologieVide) {
+      bindingResult.rejectValue("technologieId",
+          "technologie.empty",
+          "Veuillez sélectionner un"
+              + " Outils & Technologie ou en créer un nouveau");
+    }
+    // S'il n'y a rien de sélectionné dans la liste déroulante de
+    // Outils & Technologies alors ça sauvegarde la saisie dans du champ
+    // "Nouvel Outil et/ou Technologie".
+    else if (technologieIdVide) {
+      Technologie nouvelleTechnologie = new Technologie();
+      nouvelleTechnologie.setTechnologieIntitule(nouvelleTechnologieIntitule);
+      //! TEMPORAIRE POUR L'ID
+      //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
+      nouvelleTechnologie.setUserId(userService.getUser(1));
+      technologieACreer =
+          technologieService.createTechnologie(nouvelleTechnologie);
+    } else {
+      technologieACreer =
+          technologieService.getTechnologie(Integer.parseInt(technologieId));
+    }
+
+
+    //! Important pour retourner la page initiale s'il y a des erreurs
+    // Les addObject servent à recharger les méthodes getLangages et
+    // getTechnologies, car sinon quand il y a une erreur liée à langageId ou
+    // technologieId ceux-ci ne sont pas rechargés
+    if(bindingResult.hasErrors()) {
+      ModelAndView modelAndView = new ModelAndView("creationPost");
+      modelAndView.addObject("langages",
+          langageService.getLangages());
+      modelAndView.addObject("technologies",
+          technologieService.getTechnologies());
+      return modelAndView;
+    }
+
+    post.setLangageId(langageService.getLangage(Integer.parseInt(langageId)));
+    post.setTechnologieId(technologieACreer);
 
     //! Traiter les validations et les annotations (@Valid) pour que les erreurs n'arrivent pas jusqu'à l'api
     postService.createPost(post);

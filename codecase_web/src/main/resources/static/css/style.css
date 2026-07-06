@@ -62,7 +62,7 @@ mais que le navigateur peut identifier visuellement */
   --h2-size: clamp(1.5rem, 2vw + 1rem, 2rem);
   --h3-size: clamp(1.25rem, 2vw + 1rem, 1.5rem);
 
-  /*  AVATAR */
+  /* AVATAR */
   img[src=""],
   img:not([src]) {
     width: 30px;
@@ -245,12 +245,18 @@ html, body {
           }
         }
 
-        .tag-container {
+        .tags-container {
           width: 30%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 5px;
+        }
+
+        .langage-container,
+        .technologie-container {
           display: grid;
-          align-content: center;
           justify-content: end;
-          gap: 20px;
 
           > span {
             display: inline-grid;
@@ -261,16 +267,9 @@ html, body {
             font-size: clamp(1rem, 1.2rem, 1.5rem);
             color: var(--color-gris-80);
           }
-
-          .tag::before {
-            content : "\003C""\2002";
-          }
-
-          .tag::after {
-            content: "\2002""\003E";
-          }
         }
       }
+
       .article-title {
         width: 88%;
         font-family: var(--source), sans-serif;

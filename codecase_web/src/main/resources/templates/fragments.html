@@ -61,12 +61,17 @@ d'échapper le contenu HTML-->
           </div>
         </div>
       </div>
-      <div class ="tag-container">
-        <span th:text ="${post.langageId}"></span>
+      <div class="tags-container">
+        <div class ="langage-container">
+          <span th:text ="${post.langageId.langageIntitule}"></span>
+        </div>
+        <div class ="technologie-container">
+          <span th:text ="${post.technologieId.technologieIntitule}"></span>
+        </div>
       </div>
     </div>
     <div class ="article-title" th:text="${post.postTitre}"></div>
-    <div class="article-description" th:text="${post.postDescription}"></div>
+    <div class ="article-description" th:text="${post.postDescription}"></div>
     <!-- Les balises <pre> et <code> permettent de mettre en forme du
     code proprement-->
     <pre class="article-container"><code th:text="${post.postContenu}"></code></pre>

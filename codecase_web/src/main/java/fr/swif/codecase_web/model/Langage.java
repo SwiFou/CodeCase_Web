@@ -28,8 +28,4 @@ public class Langage {
       "Le tag doit avoir un minimum de 3 caractères et un maximum de 30")
   private String langageIntitule;
 
-  @Override
-  public String toString() {
-    return langageIntitule;
-  }
 }

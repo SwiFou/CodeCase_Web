@@ -27,4 +27,9 @@ public class Technologie {
 //  @NotBlank(message = "Vous devez saisir un Outil et/ou une Technologie")
   private String technologieIntitule;
 
+  /**
+   * Variable userId de type User
+   */
+  private User userId;
+
 }
