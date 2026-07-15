@@ -19,6 +19,9 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @version 0.0.1
  * @since 08/06/2026
  */
+
+// @Data est l'équivalent de @Getter @Setter @RequiredArgsConstructor
+// @ToString @EqualsAndHashCode
 @Data
 public class User {
 
@@ -54,14 +57,12 @@ public class User {
   /**
    * Variable userDateCreationCompte
    */
-  @NotNull
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate userDateCreationCompte;
 
   /**
    * Variable userDerniereConnexion
    */
-  @NotNull
   @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDateTime userDerniereConnexion;
 
@@ -113,7 +114,7 @@ public class User {
   public void setRole(String paraRole){
     if (paraRole.equals("Admin")){
       this.userRole = Role.ADMIN;
-    }else{
+    } else {
       this.userRole = Role.MEMBRE;
     }
   }
