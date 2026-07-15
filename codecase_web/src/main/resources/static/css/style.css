@@ -1,0 +1,806 @@
+
+/* CSS en Nesting */
+
+/* Les pseudo-éléments, les ::, servent à cibler une partie spécifique d'un
+élément HTML qui n'existe pas réellement dans le DOM (Document Object Model),
+mais que le navigateur peut identifier visuellement */
+
+/* root est l'élément racine du document, ici <html> */
+:root {
+  /* box-sizing définit la façon dont la largeur totale et la hauteur totale d'un
+  élément sont calculées, ici <html> */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  /* accent-color définit la couleur d'accentuation de certains éléments
+  (checkboxes, bouton radio, etc.) */
+  accent-color: var(--color-jaune);
+  /* selection est un pseudo-élément qui cible la couleur de sélection du texte */
+  ::selection {
+    background-color: var(--color-jaune);
+    color: var(--color-gris-100);
+  }
+
+
+  .icon::before {
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Variables */
+  --color-gris-100 : #232328;
+  --color-gris-80 : #727273;
+  --color-gris-60 : #BDBFBF;
+  --color-gris-40 : #D9D9D9;
+  --color-gris-20 : #EBEBEB;
+  --color-gris-00 : #F2F2F2;
+  --color-blanc : #FFFFFF;
+
+  --color-vert : #009207;
+  --color-rouge : #A40800;
+  --color-jaune : #FCCD35;
+  --color-rose-fonce : #D22D67;
+  --color-rose-clair : #EBC0D7;
+  --color-orange-fonce : #D2562D;
+  --color-orange-clair : #EFCEC3;
+
+  /* Font-Family */
+  --source: "Source Code Pro";
+  --inter : "Inter";
+  --fontawesome : "Font Awesome 6 Free";
+
+  /* FONT-SIZE */
+  /* Echelle de base du navigateur par défaut 16px */
+  /* Format : clamp(taille minimale, valeur variable, taille maximale */
+
+  /* clamp permet de définir une valeur (taille de police, largeur, marge,
+   etc.) qui s'adapte automatiquement entre un minimum et un maximum, selon la
+   taille de l'écran */
+
+  --h1-size: clamp(2rem, 3vw + 1rem, 3rem);
+  --h2-size: clamp(1.5rem, 2vw + 1rem, 2rem);
+  --h3-size: clamp(1.25rem, 2vw + 1rem, 1.5rem);
+
+  /* AVATAR */
+  img[src=""],
+  img:not([src]) {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    content: url('../images/avatars/default-avatar.svg');
+    display: inline-block;
+  }
+  --avatar-url: url('../images/avatars/default-avatar.svg');
+}
+
+html, body {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  margin : 0;
+  padding: 0;
+
+  a {
+    text-decoration: none;
+    color: var(--color-gris-100);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  body {
+    background-color: var(--color-gris-00);
+
+    header {
+      background-color: var(--color-gris-100);
+      width: 100vw;
+      max-height: 150px;
+      height: 13vh;
+      display: flex;
+      justify-content: center;
+
+      #header-container {
+        max-width: 1440px;
+        width: 82%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: center;
+
+        #logo-container {
+          max-width: 160px;
+          display: flex;
+          align-items: center;
+          margin-left: clamp(1rem, 50px, 3.5rem);
+
+          .logo {
+            max-height: 60px;
+            height: 40%;
+            width: auto;
+          }
+        }
+
+        #signin-container {
+          display: flex;
+          align-items: center;
+
+          & span:first-child {
+            margin-right: clamp(0.5rem, 20px, 1.5rem);
+          }
+
+          & span:last-child {
+            margin-right: clamp(1rem, 50px, 3.5rem);
+          }
+        }
+      }
+    }
+
+    main {
+      margin-top: clamp(1.5rem, 50px, 3.5rem);
+      width: 100vw;
+      background-color: var(--color-gris-00);
+      display: flex;
+      justify-content: center;
+
+      #main-container {
+        max-width: 1440px;
+        width: 82%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;      /* pas de wrap souhaité ici */
+        justify-content: flex-start;
+        align-items: stretch;   /* explicite : les enfants prennent toute la largeur */
+        gap: 20px;
+      }
+    }
+
+    footer {
+      padding-bottom: clamp(1.5rem, 50px, 3.5rem);
+      width: 100vw;
+      background-color: var(--color-gris-00);
+      display: flex;
+      justify-content: center;
+      font-family: var(--source), sans-serif;
+      font-size: clamp(0.5rem, 1rem, 1.5rem);
+      color: var(--color-gris-100);
+    }
+
+    article {
+      font-family: var(--source), sans-serif;
+      max-width: clamp(280px, 90vw, 1200px);
+      box-sizing: border-box;
+      width: 100%;
+      border-radius: 20px;
+      padding: clamp(1rem, 4vw, 1.5rem);
+      background-color: var(--color-gris-20);
+      border: 2px solid var(--color-blanc);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: auto;
+      margin-left: auto;
+      gap: 10px;
+
+      .article-header {
+        width: 100%;
+        height: clamp(2.5rem, 60px, 4.5rem);
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-content: flex-start;
+        align-items: center;
+
+        .info-container {
+          width: 70%;
+          display: flex;
+          align-content: center;
+
+          .avatar-container {
+            max-width: 30px;
+            display: grid;
+            grid-auto-flow: column;
+            gap: 20px;
+            align-items: center;
+
+            > div {
+              width: max-content;
+              font-family: var(--source), sans-serif;
+              -self: center;
+            }
+
+            .avatar {
+              width: 30px;
+              height: 30px;
+              border-radius: 50%;
+              background-image: var(--avatar-url);
+              background-size: cover;
+            }
+
+            .pseudo {
+              font-weight: 600;
+              text-transform: uppercase;
+              color: var(--color-gris-100);
+              font-size: clamp(0.5rem, 1rem, 1.5rem);
+            }
+
+            .datePostCase {
+              height: 100%;
+              line-height: 150%;
+              font-weight: 200;
+              color: var(--color-gris-80);
+              font-size: clamp(0.5rem, 1rem, 1.5rem);
+
+              &::before {
+                content: "\2022";
+                font-size: clamp(1rem, 1.5rem, 2rem);
+              }
+            }
+
+
+          }
+        }
+
+        .tags-container {
+          width: 30%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 5px;
+        }
+
+        .langage-container,
+        .technologie-container {
+          display: grid;
+          justify-content: end;
+
+          > span {
+            display: inline-grid;
+            grid-auto-flow: column;
+            width: max-content;
+            font-family: var(--source), sans-serif;
+            font-weight: 200;
+            font-size: clamp(1rem, 1.2rem, 1.5rem);
+            color: var(--color-gris-80);
+          }
+        }
+      }
+
+      .article-title {
+        width: 88%;
+        font-family: var(--source), sans-serif;
+        text-align: center;
+        color: var(--color-orange-fonce);
+        font-size: clamp(0.7rem, 1.2rem, 1.7rem);
+      }
+
+      .article-description {
+        width: 88%;
+        font-family: var(--inter), sans-serif;
+        text-align: left;
+        color: var(--color-gris-80);
+        font-size: clamp(0.3rem, 0.8rem, 1.3rem);
+        white-space: pre-wrap;
+        margin-bottom: 2rem;
+      }
+
+      .article-container {
+        width: 88%;
+        font-family: var(--source), sans-serif;
+        text-align: left;
+        color: var(--color-gris-100);
+        font-size: clamp(0.5rem, 1rem, 1.5rem);
+        white-space: pre-wrap;
+        margin: 0;
+      }
+      .article-footer {
+        width: 100%;
+        height: clamp(2.5rem, 60px, 4.5rem);
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        gap : 20px;
+        align-content: flex-start;
+        align-items: center;
+      }
+    }
+
+  }
+
+}
+
+/* --- Bouton mini générique --- */
+
+[class^="minbt-"] {
+  height: 40px;
+  max-height: 2.5rem;
+  min-height: 1.5rem;
+  width: 40px;
+  max-width: 2.5rem;
+  min-width: 1.5rem;
+  border-radius: 50%;
+  display: inline-grid;
+  grid-auto-flow: column;
+  place-items: center;
+  background-color: var(--color-gris-00, #eee);
+  color: var(--color-gris-100, #333);
+  font-family: var(--inter), sans-serif;
+  font-size: clamp(0.5rem, 1rem, 1.5rem);
+  text-decoration: none;
+  gap: 10px;
+}
+
+[class^="minbt-"]::before {
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--fontawesome), sans-serif;
+  font-weight: 900;
+}
+
+/* bouton mini s'inscrire */
+
+.minbt-signin {
+  margin-right: 20px ;
+  background-color: var(--color-gris-00);
+  color: var(--color-gris-100);
+}
+.minbt-signin::before {
+  content: "\f234";
+}
+
+/* bouton mini connexion */
+
+.minbt-connexion {
+  background-color: var(--color-gris-00);
+  color: var(--color-gris-100);
+}
+.minbt-connexion::before {
+  content: "\f2f6";
+}
+
+/* bouton mini deconnexion */
+
+.minbt-deconnexion {
+  background-color: var(--color-gris-00);
+  color: var(--color-gris-100);
+}
+.minbt-deconnexion::before {
+  content: "\f2f5";
+}
+
+/* bouton mini flag */
+
+.minbt-flag {
+  background-color: var(--color-orange-fonce);
+  color: var(--color-orange-clair);
+}
+.minbt-flag::before {
+  content: "\f02e";
+}
+
+/* bouton mini flagged */
+
+.minbt-flagged {
+  background-color: var(--color-orange-clair);
+  color: var(--color-orange-fonce);
+}
+.minbt-flagged::before {
+  content: "\f02e";
+}
+
+/* bouton mini like */
+
+.minbt-like {
+  background-color: var(--color-rose-clair);
+  color: var(--color-rose-fonce);
+}
+.minbt-like::before {
+  content: "\f004";
+}
+
+/* bouton mini liked */
+
+.minbt-liked {
+  background-color: var(--color-rose-fonce);
+  color: var(--color-rose-clair);
+}
+.minbt-liked::before {
+  content: "\f004";
+}
+
+/* bouton mini like gris */
+
+.minbt-like-gris {
+  background-color: var(--color-gris-60);
+  color: var(--color-gris-100);
+}
+.minbt-like-gris::before {
+  content: "\f004";
+}
+
+/* bouton mini liked gris */
+
+.minbt-liked-gris {
+  background-color: var(--color-gris-100);
+  color: var(--color-gris-60);
+}
+.minbt-liked-gris::before {
+  content: "\f004";
+}
+
+/* bouton mini flag gris */
+
+.minbt-flag-gris {
+  background-color: var(--color-gris-60);
+  color: var(--color-gris-100);
+}
+.minbt-flag-gris::before {
+  content: "\f02e";
+}
+
+/* bouton mini flagged gris */
+
+.minbt-flagged-gris {
+  background-color: var(--color-gris-100);
+  color: var(--color-gris-60);
+}
+.minbt-flagged-gris::before {
+  content: "\f02e";
+}
+
+/* bouton mini ajouter */
+
+.minbt-add {
+  position : fixed !important;
+  bottom : 5vh;
+  left: 5vw;
+  width: 50px !important;
+  max-width: 50px !important;
+  height: 50px !important;
+  max-height: 50px !important;
+  border-radius: 50%;
+  background-color: var(--color-jaune);
+  color: var(--color-gris-00);
+}
+.minbt-add::before {
+  content: "\f055";
+}
+
+/* bouton mini supprimer */
+
+.minbt-delete {
+  background-color: var(--color-rouge);
+  color: var(--color-gris-00);
+}
+.minbt-delete::before {
+  content: "\f056";
+}
+
+/* bouton mini valider */
+
+.minbt-valide {
+  background-color: var(--color-vert);
+  color: var(--color-gris-00);
+}
+.minbt-valide::before {
+  content: "\f058";
+}
+
+/* --- bouton complet générique --- */
+
+[class^="bt-"] {
+  height: 40px;
+  max-height: 2.5rem;
+  min-height: 1.5rem;
+  max-width: 250px;
+  border-radius: 999px;
+  display: inline-grid;
+  grid-auto-flow: column;
+  place-items: center;
+  padding: 0 clamp(0.5rem, 1rem, 1.5rem);
+  background-color: var(--color-gris-00, #eee);
+  color: var(--color-gris-100, #333);
+  font-family: var(--inter), sans-serif;
+  font-size: clamp(0.5rem, 1rem, 1.5rem);
+  text-decoration: none;
+  gap: 10px;
+}
+
+[class^="bt-"]::after {
+  content: attr(data-action);
+  text-transform: capitalize;
+}
+
+[class^="bt-"]::before {
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--fontawesome), sans-serif;
+  font-weight: 900;
+}
+
+/* bouton connexion */
+
+.bt-connexion {
+  background-color: var(--color-gris-00);
+  color: var(--color-gris-100);
+}
+.bt-connexion::before {
+  content: "\f2f6";
+}
+
+/* bouton deconnexion */
+
+.bt-deconnexion {
+  background-color: var(--color-gris-00);
+  color: var(--color-gris-100);
+}
+.bt-deconnexion::before {
+  content: "\f2f5";
+}
+
+/* bouton favoris */
+
+.bt-flag {
+  background-color: var(--color-orange-fonce);
+  color: var(--color-orange-clair);
+}
+.bt-flag::before {
+  content: "\f02e";
+}
+
+/* bouton flagged */
+
+.bt-flagged {
+  background-color: var(--color-orange-clair);
+  color: var(--color-orange-fonce);
+}
+.bt-flagged::before {
+  content: "\f02e";
+}
+
+/* bouton like */
+
+.bt-like {
+  background-color: var(--color-rose-clair);
+  color: var(--color-rose-fonce);
+}
+.bt-like::before {
+  content: "\f004";
+}
+
+/* bouton f004 */
+
+.bt-liked {
+  background-color: var(--color-rose-fonce);
+  color: var(--color-rose-clair);
+}
+.bt-liked::before {
+  content: "\f004";
+}
+
+/* bouton like gris */
+
+.bt-like-gris {
+  background-color: var(--color-gris-60);
+  color: var(--color-gris-100);
+}
+.bt-like-gris::before {
+  content: "\f004";
+}
+
+/* bouton liked gris */
+
+.bt-liked-gris {
+  background-color: var(--color-gris-100);
+  color: var(--color-gris-60);
+}
+.bt-liked-gris::before {
+  content: "\f004";
+}
+
+/* bouton flag gris */
+
+.bt-flag-gris {
+  background-color: var(--color-gris-60);
+  color: var(--color-gris-100);
+}
+.bt-flag-gris::before {
+  content: "\f02e";
+}
+
+/* bouton flagged gris */
+
+.bt-flagged-gris {
+  background-color: var(--color-gris-100);
+  color: var(--color-gris-60);
+}
+.bt-flagged-gris::before {
+  content: "\f02e";
+}
+
+/* bouton ajouter */
+
+.bt-add {
+  background-color: var(--color-jaune);
+  color: var(--color-gris-00);
+}
+.bt-add::before {
+  content: "\f055";
+}
+
+/* bouton supprimer */
+
+.bt-delete {
+  background-color: var(--color-rouge);
+  color: var(--color-gris-00);
+}
+.bt-delete::before {
+  content: "\f056";
+}
+
+/* bouton valider */
+
+.bt-valide {
+  background-color: var(--color-vert);
+  color: var(--color-gris-00);
+}
+.bt-valide::before {
+  content: "\f058";
+}
+
+/* --- formulaire --- */
+
+form {
+  display: grid;
+  grid-auto-flow: row;
+  justify-content: start;
+  gap: 10px;
+
+  label {
+    font-family: var(--inter), sans-serif;
+    font-size: clamp(0.5rem, 1rem, 1.5rem);
+    color: var(--color-gris-100);
+    font-weight: 500;
+    padding-left: 10px;
+  }
+
+  input {
+    accent-color: var(--color-jaune);
+    outline: none;
+    display : grid;
+    border : 2px solid var(--color-blanc);
+    background-color: var(--color-gris-40);
+    border-radius: 20px;
+    padding : 0 20px 0 20px;
+    height: 40px;
+    width: max-content;
+  }
+
+  input:focus {
+    border-color: var(--color-jaune);
+  }
+
+  [type="submit"] {
+    display: grid;
+    border-radius: 20px;
+    border : 2px solid var(--color-blanc);
+    padding : 0 20px 0 20px;
+    height: 40px;
+    width: max-content;
+    outline: none;
+    background-color: var(--color-vert);
+    color: var(--color-gris-00);
+    text-transform: uppercase;
+    place-content: center;
+  }
+
+  textarea {
+    display : grid;
+    border : 2px solid var(--color-blanc);
+    background-color: var(--color-gris-40);
+    border-radius: 20px;
+    padding : 0 20px 0 20px;
+    height: 40px;
+    width: max-content;
+    accent-color: var(--color-jaune);
+    outline: none;
+  }
+
+  select {
+    display : grid;
+    border : 2px solid var(--color-blanc);
+    background-color: var(--color-gris-40);
+    border-radius: 20px;
+    padding : 0 20px 0 20px;
+    height: 40px;
+    width: max-content;
+    accent-color: var(--color-jaune);
+    outline: none;
+  }
+
+
+  select:focus {
+    border-color: var(--color-jaune);
+  }
+
+}
+
+.grand-form {
+  display: grid;
+  grid-auto-flow: row;
+  justify-content: start;
+  gap: 10px;
+
+  label {
+    font-family: var(--inter), sans-serif;
+    font-size: clamp(0.5rem, 1rem, 1.5rem);
+    color: var(--color-gris-100);
+    font-weight: 500;
+    padding-left: 10px;
+  }
+
+  input {
+    accent-color: var(--color-jaune);
+    outline: none;
+    display : grid;
+    border : 2px solid var(--color-blanc);
+    background-color: var(--color-gris-40);
+    border-radius: 20px;
+    padding : 0 20px 0 20px;
+    height: 40px;
+    width: max-content;
+  }
+
+  input:focus {
+    border-color: var(--color-jaune);
+  }
+
+  [type="submit"] {
+    display: grid;
+    border-radius: 20px;
+    border : 2px solid var(--color-blanc);
+    padding : 0 20px 0 20px;
+    height: 40px;
+    width: max-content;
+    outline: none;
+    background-color: var(--color-vert);
+    color: var(--color-gris-00);
+    text-transform: uppercase;
+    place-content: center;
+  }
+
+  textarea {
+    display : grid;
+    border : 2px solid var(--color-blanc);
+    background-color: var(--color-gris-40);
+    border-radius: 20px;
+    padding : 0 20px 0 20px;
+    height: 40px;
+    width: max-content;
+    accent-color: var(--color-jaune);
+    outline: none;
+  }
+
+  select {
+    display : grid;
+    border : 2px solid var(--color-blanc);
+    background-color: var(--color-gris-40);
+    border-radius: 20px;
+    padding : 0 20px 0 20px;
+    height: 40px;
+    width: max-content;
+    accent-color: var(--color-jaune);
+    outline: none;
+  }
+
+
+  select:focus {
+    border-color: var(--color-jaune);
+  }
+}

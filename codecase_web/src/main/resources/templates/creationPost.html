@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head th:insert="fragments :: htmlHead">
+  <title>Création d'un post</title>
+</head>
+<body>
+<div th:insert="fragments :: headerContent"></div>
+<main>
+  <div id="main-container">
+    <article>
+      <h1>Créer un post</h1>
+      <div class="article-container">
+        <form method="post" th:action="@{/createPost}" th:object="${post}">
+
+          <!-- Titre -->
+          <div class="form-group">
+            <input type="text" th:field="*{postTitre}" placeholder="Titre du post"/>
+          </div>
+          <!-- Positionnement du message d'erreur pour le titre du post -->
+          <div class="validation-error" th:if="${#fields.hasErrors('postTitre')}" th:errors="*{postTitre}">Erreur titre</div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <input type="text" th:field="*{postDescription}" placeholder="Description"/>
+          </div>
+          <!-- Positionnement du message d'erreur pour la description du post -->
+          <div class="validation-error" th:if="${#fields.hasErrors('postDescription')}" th:errors="*{postDescription}">Erreur description</div>
+
+          <!-- Langage -->
+          <div class="form-group">
+            <select name="idLangage">
+              <!-- value="" permet d'éviter d'envoyer la valeur par défaut dans la BDD -->
+              <option value="">Langage</option>
+              <option th:each="langage: ${langages}"
+                      th:value="${langage.langageId}" th:text="${langage.langageIntitule}">
+              </option>
+            </select>
+          </div>
+          <!-- Positionnement du message d'erreur pour le langage du post -->
+          <div class="validation-error" th:if="${#fields.hasErrors('langageId')}" th:errors="*{langageId}">Erreur langage</div>
+
+          <!-- Outils & Technologies -->
+          <div class="form-group">
+            <select name="idTechnologie">
+              <!-- value="" permet d'éviter d'envoyer la valeur par défaut dans la BDD -->
+              <option value="">Outils & Technologies</option>
+              <option th:each="technologie: ${technologies}"
+                      th:value="${technologie.technologieId}" th:text="${technologie.technologieIntitule}">
+              </option>
+            </select>
+          </div>
+          <!-- Positionnement du message d'erreur pour la technologie du post -->
+          <div class="validation-error" th:if="${#fields.hasErrors('technologieId')}" th:errors="*{technologieId}">Erreur technologie</div>
+
+          <!-- Créer un nouvel Outil et/ou Technologie -->
+          <div class="form-group">
+            <input type="text" name="nouvelleTechnologie" placeholder="Nouvel Outil et/ou Technologie"/>
+          </div>
+
+          <!-- Contenu du post (le code posté) -->
+          <div class="grand-form">
+            <textarea th:field="*{postContenu}" placeholder="Code"></textarea>
+          </div>
+          <!-- Positionnement du message d'erreur pour le contenu du post -->
+          <div class="validation-error" th:if="${#fields.hasErrors('postContenu')}" th:errors="*{postContenu}">Erreur contenu</div>
+
+          <button type="submit">Valider</button>
+
+        </form>
+      </div>
+    </article>
+  </div>
+</main>
+<div th:insert="fragments :: footer"></div>
+
+</body>
+</html>

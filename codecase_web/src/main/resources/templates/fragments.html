@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="htmlHead">
+  <meta charset="UTF-8">
+  <title>Code Case</title>
+  <link rel ="stylesheet" href="../static/css/style.css" data-th-href="@{/css/style.css}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+
+<div th:fragment="headerContent">
+  <header>
+    <div id="header-container">
+      <div id="logo-container">
+        <a href="/" alt ="lien vers page d'accueil"><img src="/images/logo-font-white.png" alt="logo Code CASE" class="logo"></a>
+      </div>
+      <div id="signin-container">
+        <span><a class="minbt-signin" data-action ="S'inscrire" href="/signup"></a></span>
+        <span><a class="bt-connexion" data-action="Connexion" href="/login"></a></span>
+      </div>
+    </div>
+  </header>
+</div>
+
+<!--! Voir comment faire pour mettre juste le bouton Déconnecter quand on est connecté-->
+
+<!--! <div th:fragment="headerConnecte">-->
+<!--  <header>-->
+<!--    <div id="header-container">-->
+<!--      <div id="logo-container">-->
+<!--        <a href="/" alt ="lien vers page d'accueil"><img src="/images/logo-font-white.png" alt="logo Code CASE" class="logo"></a>-->
+<!--      </div>-->
+<!--      <div id="signin-container">-->
+<!--        <span><a class="minbt-signin" data-action ="S'inscrire" href="/signup"></a></span>-->
+<!--        <span><a class="bt-connexion" data-action="Connexion" href="/login"></a></span>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </header>-->
+<!--!</div>-->
+<!-- Fragment pour les posts affichés dans l'accueil -->
+
+<!-- Les th:text permet d'injecter le texte de la balise HTML concernée et
+d'échapper le contenu HTML-->
+<div th:fragment="case(post)">
+  <article>
+    <div class ="article-header">
+      <div class="info-container">
+        <div class ="avatar-container">
+          <div class="avatar">
+            <img src="" alt="avatar">
+          </div>
+          <div class ="pseudo">
+            <span th:text ="${post.userId}"></span>
+          </div>
+          <div class ="datePostCase">
+            <span th:text = "${post.postDateCreation}"></span>
+          </div>
+        </div>
+      </div>
+      <div class="tags-container">
+        <div class ="langage-container">
+          <span th:text ="${post.langageId.langageIntitule}"></span>
+        </div>
+        <div class ="technologie-container">
+          <span th:text ="${post.technologieId.technologieIntitule}"></span>
+        </div>
+      </div>
+    </div>
+    <div class ="article-title" th:text="${post.postTitre}"></div>
+    <div class ="article-description" th:text="${post.postDescription}"></div>
+    <!-- Les balises <pre> et <code> permettent de mettre en forme du
+    code proprement-->
+    <pre class="article-container"><code th:text="${post.postContenu}"></code></pre>
+    <div class="article-footer">
+      <span><a class="bt-like" data-action ="like" href=""></a></span>
+      <span><a class="bt-flag" data-action ="favoris" href=""></a></span>
+    </div>
+  </article>
+</div>
+
+<div th:fragment="signupForm">
+  <article>
+    <div class ="article-header">
+      <div class="info-container">
+        <div class ="avatar-container">
+          <div class ="pseudo">
+            <span>Inscription</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="article-container">
+      <form method="post" th:action="@{/createUser}" th:object="${user}">
+        <div class="form-group">
+          <input type="text" th:field="*{userEmail}" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <input type="text" th:field="*{userPseudo}" placeholder="Pseudonyme">
+        </div>
+        <div class="form-group">
+          <input type="text" th:field="*{userMdp}" placeholder="Mot de Passe">
+        </div>
+        <div class="form-group">
+          <input type="text" th:field="*{userAvatar}" placeholder="Avatar">
+        </div>
+        <button type="submit">Valider</button>
+      </form>
+    </div>
+    <div class="article-footer">
+      <span><a class="bt-valide" data-action ="flag" href="/signup"></a></span>
+    </div>
+  </article>
+</div>
+
+<div th:fragment="footer">
+  <footer>
+    <a href="" alt = "Mentions légales">Mentions légales</a> |
+    <a href="" alt ="Politique de gestion des données personnelles">Politiques de protections des données</a> |
+    <a href="" alt="Politique d'accessibilité">Politique d’accessibilité</a>
+  </footer>
+</div>
+
+</body>
+</html>
