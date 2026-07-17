@@ -58,7 +58,7 @@ public class PostController {
    * @return La page creationPost
    */
   @GetMapping("/creationPost")
-  public String formulaire(Model model) throws CodeCaseWebException{
+  public String formulaire(Model model) throws CodeCaseWebException {
     //! Faire en sorte de vérifier le token JWT du user avant toutes modifs
     model.addAttribute("post", new Post());
     model.addAttribute("langages", langageService.getLangages());
@@ -96,7 +96,7 @@ public class PostController {
     // vides, si c'est l'un ou l'autre, ça ajoutera une erreur manuelle grâce au
     // rejectValue.
     // S'il n'y avait pas ceux-ci, cela retournerait une erreur de type
-    // NumberFormatException à cause des value = "" dans le HTML
+    // NumberFormatException à cause des value = "" dans le HTML.
     if(langageId == null || langageId.isBlank()) {
       bindingResult.rejectValue("langageId", "langage.empty",
           "Veuillez sélectionner un langage");
@@ -150,7 +150,6 @@ public class PostController {
     post.setLangageId(langageService.getLangage(Integer.parseInt(langageId)));
     post.setTechnologieId(technologieACreer);
 
-    //! Traiter les validations et les annotations (@Valid) pour que les erreurs n'arrivent pas jusqu'à l'api
     postService.createPost(post);
     return new ModelAndView("redirect:/");
   }

@@ -24,6 +24,7 @@ public class CodecaseWebApplication implements CommandLineRunner {
 		SpringApplication.run(CodecaseWebApplication.class, args);
 	}
 
+	// @Override sert à redéfinir une méthode héritée
 	@Override
 	public void run(String... args) throws Exception {
 		System.out.println(props.getApiUrl());

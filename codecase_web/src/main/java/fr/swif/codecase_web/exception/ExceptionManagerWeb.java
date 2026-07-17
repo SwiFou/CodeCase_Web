@@ -18,10 +18,11 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
  * @since 29/06/2026
  */
 
+// @Slf4j permet de générer un champ de log
+@Slf4j
 // @ControllerAdvice permet d'intercepter les exceptions levées par les
 // controllers et ainsi de retourner n'importe quel type de réponse, ici des
 // vues Thymeleaf
-@Slf4j
 @ControllerAdvice
 public class ExceptionManagerWeb {
 

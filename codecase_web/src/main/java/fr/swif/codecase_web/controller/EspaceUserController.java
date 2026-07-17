@@ -84,7 +84,8 @@ public class EspaceUserController {
     // addFlashAttribute permet de sauvegarder un message avant la redirection
     // de la page, n'est disponible qu'une seule fois puis est automatiquement
     // supprimé
-    redirectAttributes.addFlashAttribute("message", "Email modifié avec succès");
+    redirectAttributes.addFlashAttribute("message",
+        "Email modifié avec succès");
     return new ModelAndView("redirect:/espaceUser");
   }
 
@@ -113,7 +114,8 @@ public class EspaceUserController {
     // addFlashAttribute permet de sauvegarder un message avant la redirection
     // de la page, n'est disponible qu'une seule fois puis est automatiquement
     // supprimé
-    redirectAttributes.addFlashAttribute("message", "Avatar modifié avec succès");
+    redirectAttributes.addFlashAttribute("message",
+        "Avatar modifié avec succès");
     return new ModelAndView("redirect:/espaceUser");
   }
 
@@ -142,7 +144,8 @@ public class EspaceUserController {
     // addFlashAttribute permet de sauvegarder un message avant la redirection
     // de la page, n'est disponible qu'une seule fois puis est automatiquement
     // supprimé
-    redirectAttributes.addFlashAttribute("message", "Mot de passe modifié avec succès");
+    redirectAttributes.addFlashAttribute("message",
+        "Mot de passe modifié avec succès");
     return new ModelAndView("redirect:/espaceUser");
   }
 }

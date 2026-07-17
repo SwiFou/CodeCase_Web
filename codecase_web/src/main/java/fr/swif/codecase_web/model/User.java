@@ -79,46 +79,6 @@ public class User {
    */
   private boolean userMfaActif;
 
-  /**
-   * Méthode setMdp (char[])
-   *<i>de User</i>
-   *<hr>
-   *<p>Setter pour le mot de passe si venu d'un input, non hash</p>
-   *
-   * @param paraMdp venu d'un input
-   */
-  public void setMdp(char[] paraMdp){
-    this.userMdp = paraMdp.toString();
-  }
-
-  /**
-   * Méthode setMdp (String)
-   *<i>de User</i>
-   *<hr>
-   *<p>Setter pour le mot de passe si venu d'une BDD, hashé</p>
-   *
-   * @param paraMdp venu d'une BDD
-   */
-  public void setMdp(String paraMdp){
-    this.userMdp = paraMdp;
-  }
-
-  /**
-   * Méthode setRole
-   *<i>de User</i>
-   *<hr>
-   *<p>Prends le String venu de la BDD et en fait un Role</p>
-   *
-   * @param paraRole Le rôle sous forme de String
-   */
-  public void setRole(String paraRole){
-    if (paraRole.equals("Admin")){
-      this.userRole = Role.ADMIN;
-    } else {
-      this.userRole = Role.MEMBRE;
-    }
-  }
-
   @Override
   public String toString() {
     return userPseudo;

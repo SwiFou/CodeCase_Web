@@ -75,7 +75,7 @@ public class UserService {
    * @return Le User cherché
    * @throws CodeCaseWebException
    */
-  public User getUser(int id) throws CodeCaseWebException{
+  public User getUser(int id) throws CodeCaseWebException {
     try {
       return userRepository.getUser(id);
     } catch (HttpClientErrorException cx) {
@@ -107,7 +107,7 @@ public class UserService {
    * @return Le User cherché
    * @throws CodeCaseWebException
    */
-  public User getUserByPseudo(String pseudo) throws CodeCaseWebException{
+  public User getUserByPseudo(String pseudo) throws CodeCaseWebException {
     try {
       return userRepository.getUserByPseudo(pseudo);
     } catch (HttpClientErrorException cx) {
@@ -139,7 +139,7 @@ public class UserService {
    * @return Le User cherché
    * @throws CodeCaseWebException
    */
-  public User getUserByMail(String mail) throws CodeCaseWebException{
+  public User getUserByMail(String mail) throws CodeCaseWebException {
     try {
       return userRepository.getUserByMail(mail);
     } catch (HttpClientErrorException cx) {
@@ -170,7 +170,7 @@ public class UserService {
    * @param id L'id du User à supprimer
    * @throws CodeCaseWebException
    */
-  public void deleteUser(int id) throws CodeCaseWebException{
+  public void deleteUser(int id) throws CodeCaseWebException {
     try {
       userRepository.deleteUser(id);
     } catch (HttpClientErrorException cx) {
@@ -202,7 +202,7 @@ public class UserService {
    * @return Le User créé
    * @throws CodeCaseWebException
    */
-  public User createUser(User user) throws CodeCaseWebException{
+  public User createUser(User user) throws CodeCaseWebException {
     try {
       return userRepository.createUser(user);
     } catch (HttpClientErrorException cx) {
@@ -235,7 +235,7 @@ public class UserService {
    * @return Le User mis à jour
    * @throws CodeCaseWebException
    */
-  public User updateUser(User user) throws CodeCaseWebException{
+  public User updateUser(User user) throws CodeCaseWebException {
     try {
       return userRepository.updateUser(user);
     } catch (HttpClientErrorException cx) {
@@ -267,7 +267,7 @@ public class UserService {
    * @param id L'id du User à anonymiser
    * @throws CodeCaseWebException
    */
-  public void anonymisationUser(int id) throws CodeCaseWebException{
+  public void anonymisationUser(int id) throws CodeCaseWebException {
     try {
       userRepository.anonymisationUser(id);
     } catch (HttpClientErrorException cx) {
