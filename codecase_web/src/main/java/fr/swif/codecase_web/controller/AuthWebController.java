@@ -6,6 +6,7 @@ import fr.swif.codecase_web.service.AuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 16/07/2026
  */
 
+// @Slf4j permet de générer un champ de log
+@Slf4j
 // @Controller qui marque la classe comme composant Spring MVC
 // gérant les requêtes HTTP
 @Controller
@@ -45,7 +48,8 @@ public class AuthWebController {
    * @return La page connexion
    */
   @GetMapping("/connexion")
-  public String afficherConnexion() {
+  public String afficherConnexion(Model model) {
+    model.addAttribute("user", new User());
     return "connexion";
   }
 
@@ -64,7 +68,34 @@ public class AuthWebController {
    */
   @PostMapping("/connexion")
   public ModelAndView connexion(@ModelAttribute("user") User user,
-      HttpServletResponse response) throws CodeCaseWebException {
+      BindingResult bindingResult,HttpServletResponse response)
+      throws CodeCaseWebException {
+
+    boolean emailVide = user.getUserEmail() == null ||
+        user.getUserEmail().isBlank();
+
+    boolean mdpVide = user.getUserMdp() == null ||
+        user.getUserMdp().isBlank();
+
+    // Si l'adresse mail est null ou contient seulement des espaces,
+    // alors il y a un message d'erreur communiqué à l'utilisateur.
+    if(emailVide) {
+      bindingResult.rejectValue("userEmail",
+          "userEmail.empty",
+          "Veuillez saisir votre adresse mail");
+    }
+
+    // Si le mot de passe est null ou contient seulement des espaces,
+    // alors il y a un message d'erreur communiqué à l'utilisateur.
+    if(mdpVide) {
+      bindingResult.rejectValue("userMdp",
+          "userMdp.empty",
+          "Veuillez saisir votre mot de passe");
+    }
+
+    if (bindingResult.hasErrors()) {
+      return new ModelAndView("connexion");
+    }
 
     authService.connecterUser(user, response);
 
@@ -133,6 +164,6 @@ public class AuthWebController {
 
     authService.deconnecterUser(response);
 
-    return new ModelAndView("redirect:/connexion");
+    return new ModelAndView("redirect:/");
   }
 }

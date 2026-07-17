@@ -537,8 +537,10 @@ html, body {
 /* bouton deconnexion */
 
 .bt-deconnexion {
-  background-color: var(--color-gris-00);
-  color: var(--color-gris-100);
+  background-color: var(--color-gris-00) !important;
+  color: var(--color-gris-100) !important;
+  border: none !important; /* Enlève la bordure blanche héritée du style de bouton global */
+  cursor: pointer; /* Rétablit le curseur de survol (main) comme sur un lien */
 }
 .bt-deconnexion::before {
   content: "\f2f5";

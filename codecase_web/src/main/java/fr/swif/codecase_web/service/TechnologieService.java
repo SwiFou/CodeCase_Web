@@ -75,9 +75,9 @@ public class TechnologieService {
    * @return La Technologie
    * @throws CodeCaseWebException
    */
-  public Technologie getTechnologie(int id) throws CodeCaseWebException{
+  public Technologie getTechnologie(int id, String jwt) throws CodeCaseWebException{
     try {
-      return technologieRepository.getTechnologie(id);
+      return technologieRepository.getTechnologie(id, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
@@ -107,9 +107,10 @@ public class TechnologieService {
    * @return La Technologie créée
    * @throws CodeCaseWebException
    */
-  public Technologie createTechnologie(Technologie technologie) throws CodeCaseWebException{
+  public Technologie createTechnologie(Technologie technologie, String jwt)
+      throws CodeCaseWebException{
     try {
-      return technologieRepository.createTechnologie(technologie);
+      return technologieRepository.createTechnologie(technologie, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}

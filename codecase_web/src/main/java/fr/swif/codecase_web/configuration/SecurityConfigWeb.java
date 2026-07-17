@@ -1,4 +1,4 @@
-package fr.swif.codecase_web.config;
+package fr.swif.codecase_web.configuration;
 
 import fr.swif.codecase_web.filter.JwtWebFiltre;
 import lombok.RequiredArgsConstructor;

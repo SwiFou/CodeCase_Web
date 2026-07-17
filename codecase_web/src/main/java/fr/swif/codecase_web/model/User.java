@@ -1,5 +1,6 @@
 package fr.swif.codecase_web.model;
 
+import fr.swif.codecase_web.configuration.RoleRequisWeb;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -40,18 +41,22 @@ public class User {
   /**
    * Variable userMdp
    */
+  @NotBlank(message = "Vous devez renseigner votre mot de passe")
   private String userMdp;
 
   /**
    * Variable userEmail
    */
+  @NotBlank(message = "Vous devez renseigner votre adresse mail")
   @Email
   private String userEmail;
 
   /**
    * Variable role de type Role
    */
-  @NotNull
+  // @NotNull → de base le groups est mis en default
+  @NotNull(message = "userRole : ne doit pas être null",
+      groups = RoleRequisWeb.class)
   private Role userRole;
 
   /**

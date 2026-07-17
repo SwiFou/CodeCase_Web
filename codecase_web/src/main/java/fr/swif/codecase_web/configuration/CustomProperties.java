@@ -1,4 +1,4 @@
-package fr.swif.codecase_web.config;
+package fr.swif.codecase_web.configuration;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

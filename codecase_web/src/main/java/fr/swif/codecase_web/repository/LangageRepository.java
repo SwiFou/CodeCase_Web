@@ -1,11 +1,12 @@
 package fr.swif.codecase_web.repository;
 
-import fr.swif.codecase_web.config.CustomProperties;
+import fr.swif.codecase_web.configuration.CustomProperties;
 import fr.swif.codecase_web.model.Langage;
-import fr.swif.codecase_web.model.Post;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -77,7 +78,7 @@ public class LangageRepository {
    * @param id L'id du Langage cherché
    * @return Le Langage
    */
-  public Langage getLangage(int id) {
+  public Langage getLangage(int id, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String getLangageUrl = BASE_API_URL + "/langage/" + id;
 
@@ -85,12 +86,19 @@ public class LangageRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
+    HttpEntity<Void> request = new HttpEntity<>(headers);
+
     // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<Langage> response = restTemplate.exchange(
         getLangageUrl, // L'URL
         HttpMethod.GET, // La méthode HTTP
-        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        request, // Le HttpEntity
         Langage.class // Le type de retour ici Langage.class car c'est un objet simple
     );
     log.debug("Get Langage " + response.getStatusCode());

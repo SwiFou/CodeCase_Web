@@ -1,6 +1,6 @@
 package fr.swif.codecase_web.repository;
 
-import fr.swif.codecase_web.config.CustomProperties;
+import fr.swif.codecase_web.configuration.CustomProperties;
 import fr.swif.codecase_web.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

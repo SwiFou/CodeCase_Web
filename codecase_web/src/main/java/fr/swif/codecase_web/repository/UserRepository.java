@@ -1,11 +1,12 @@
 package fr.swif.codecase_web.repository;
 
-import fr.swif.codecase_web.config.CustomProperties;
+import fr.swif.codecase_web.configuration.CustomProperties;
 import fr.swif.codecase_web.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -48,7 +49,7 @@ public class UserRepository {
    *<p>Renvoie tous les Users en BDD</p>
    * @return Un Iterable de User
    */
-  public Iterable<User> getUsers() {
+  public Iterable<User> getUsers(String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String getUsersUrl = BASE_API_URL + "/users";
 
@@ -56,12 +57,19 @@ public class UserRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
+    HttpEntity<Void> request = new HttpEntity<>(headers);
+
     // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<Iterable<User>> response = restTemplate.exchange(
         getUsersUrl, // L'URL
         HttpMethod.GET, // La méthode HTTP
-        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        request, // Le HttpEntity
         new ParameterizedTypeReference<>() {} // le type de retour ici
         // ParameterizedTypeReference car c'est un Iterable
     );
@@ -81,7 +89,7 @@ public class UserRepository {
    * @param id L'id du User recherché
    * @return Le User cherché
    */
-  public User getUser(int id) {
+  public User getUser(int id, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String getUserUrl = BASE_API_URL + "/user/" + id;
 
@@ -89,12 +97,19 @@ public class UserRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
+    HttpEntity<Void> request = new HttpEntity<>(headers);
+
     // ResponseEntíty est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<User> response= restTemplate.exchange(
         getUserUrl, // L'URL
         HttpMethod.GET, // La méthode HTTP
-        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        request, // Le HttpEntity
         User.class // Le type de retour ici User.class car c'est un objet simple
     );
 
@@ -114,7 +129,7 @@ public class UserRepository {
    * @param pseudo Le pseudo du User cherché
    * @return Le User cherché
    */
-  public User getUserByPseudo(String pseudo) {
+  public User getUserByPseudo(String pseudo, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String getUserByPseudoUrl = BASE_API_URL + "/userPseudo/" + pseudo;
 
@@ -122,12 +137,19 @@ public class UserRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
+    HttpEntity<Void> request = new HttpEntity<>(headers);
+
     // ResponseEntíty est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<User> response= restTemplate.exchange(
         getUserByPseudoUrl, // L'URL
         HttpMethod.GET, // La méthode HTTP
-        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        request, // La requestEntity qui peut renvoyer un Corps+Header ou rien
         User.class // Le type de retour ici User.class car c'est un objet simple
     );
 
@@ -147,7 +169,7 @@ public class UserRepository {
    * @param mail L'email du User cherché
    * @return Le User cherché
    */
-  public User getUserByMail(String mail) {
+  public User getUserByMail(String mail, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String getUserByMailUrl = BASE_API_URL + "/userMail/" + mail;
 
@@ -155,12 +177,19 @@ public class UserRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
+    HttpEntity<Void> request = new HttpEntity<>(headers);
+
     // ResponseEntíty est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<User> response= restTemplate.exchange(
         getUserByMailUrl, // L'URL
         HttpMethod.GET, // La méthode HTTP
-        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        request, // La requestEntity qui peut renvoyer un Corps+Header ou rien
         User.class // Le type de retour ici User.class car c'est un objet simple
     );
 
@@ -180,7 +209,7 @@ public class UserRepository {
    * @param user Le User à créer
    * @return Le User créé
    */
-  public User createUser(User user) {
+  public User createUser(User user, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String createUserUrl = BASE_API_URL + "/user";
 
@@ -188,8 +217,14 @@ public class UserRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
+
     // HttpEntity est un objet qui retourne un Body et Headers
-    HttpEntity<User> request = new HttpEntity<>(user);
+    HttpEntity<User> request = new HttpEntity<>(user, headers);
     // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<User> response = restTemplate.exchange(
@@ -215,7 +250,7 @@ public class UserRepository {
    * @param user Le User mis à jour
    * @return Le User mis à jour
    */
-  public User updateUser(User user) {
+  public User updateUser(User user, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String updateUserUrl = BASE_API_URL + "/user/" + user.getUserId();
 
@@ -223,8 +258,14 @@ public class UserRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
+
     // HttpEntity est un objet qui retourne un Body et Headers
-    HttpEntity<User> request = new HttpEntity<>(user);
+    HttpEntity<User> request = new HttpEntity<>(user, headers);
     // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<User> response = restTemplate.exchange(
@@ -249,7 +290,7 @@ public class UserRepository {
    *<p>Anonymise le User avec l'id spécifié, ne renvoie rien</p>
    * @param id L'id du User à anonymiser
    */
-  public void anonymisationUser(int id) {
+  public void anonymisationUser(int id, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String anonymisationUserUrl = BASE_API_URL + "/user_anonym/" + id;
 
@@ -257,13 +298,20 @@ public class UserRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
+    HttpEntity<Void> request = new HttpEntity<>(headers);
+
     // ResponseEntity est une classe Spring qui représente toute la réponse HTPP
     // exchange permet de transmettre :
     ResponseEntity<User> response = restTemplate.exchange(
         anonymisationUserUrl, // L'URL
         HttpMethod.PUT, // La méthode HTPP
-        null,
-        User.class
+        request, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        User.class // Le type de retour ici User.class car c'est un objet simple
     );
 
     log.debug("Anonymisation User " + response.getStatusCode());
@@ -278,7 +326,7 @@ public class UserRepository {
    *<p>Supprime le User avec l'id spécifié, ne renvoie rien</p>
    * @param id L'id du User à supprimer
    */
-  public void deleteUser(int id) {
+  public void deleteUser(int id, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String deleteUserUrl = BASE_API_URL + "/user/" + id;
 
@@ -286,12 +334,19 @@ public class UserRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
+    HttpEntity<Void> request = new HttpEntity<>(headers);
+
     // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<User> response = restTemplate.exchange(
         deleteUserUrl, // L'URL
         HttpMethod.DELETE, // La méthode HTTP
-        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        request, // La requestEntity qui peut renvoyer un Corps+Header ou rien
         User.class // Le type de retour ici User.class car c'est un objet simple
     );
 

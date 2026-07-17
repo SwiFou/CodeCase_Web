@@ -1,11 +1,12 @@
 package fr.swif.codecase_web.repository;
 
-import fr.swif.codecase_web.config.CustomProperties;
+import fr.swif.codecase_web.configuration.CustomProperties;
 import fr.swif.codecase_web.model.Post;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -77,7 +78,7 @@ public class PostRepository {
    * @param id L'id du Post cherché
    * @return Le Post
    */
-  public Post getPost(int id) {
+  public Post getPost(int id, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String getPostUrl = BASE_API_URL + "/post/" + id;
 
@@ -85,12 +86,19 @@ public class PostRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
+    HttpEntity<Void> request = new HttpEntity<>(headers);
+
     // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<Post> response = restTemplate.exchange(
         getPostUrl, // L'URL
         HttpMethod.GET, // La méthode HTTP
-        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        request, // La requestEntity qui peut renvoyer un Corps+Header ou rien
         Post.class // Le type de retour ici Post.class car c'est un objet simple
     );
 
@@ -110,7 +118,7 @@ public class PostRepository {
    * @param post Le Post à créer
    * @return Le Post créé
    */
-  public Post createPost(Post post) {
+  public Post createPost(Post post, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String createPostUrl = BASE_API_URL + "/post";
 
@@ -118,8 +126,13 @@ public class PostRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
     // HttpEntity est un objet qui retourne un Body et Headers
-    HttpEntity<Post> request = new HttpEntity<>(post);
+    HttpEntity<Post> request = new HttpEntity<>(post, headers);
     // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<Post> response = restTemplate.exchange(
@@ -144,7 +157,7 @@ public class PostRepository {
    *<p>Supprime le Post avec l'id spécifié, ne renvoie rien</p>
    * @param id L'id du Post à supprimer
    */
-  public void deletePost(int id) {
+  public void deletePost(int id, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String deletePostUrl = BASE_API_URL + "/post/" + id;
 
@@ -152,12 +165,19 @@ public class PostRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
+    HttpEntity<Void> request = new HttpEntity<>(headers);
+
     // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<Post> response = restTemplate.exchange(
         deletePostUrl, // L'URL
         HttpMethod.DELETE, // La méthode HTTP
-        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        request, // La requestEntity qui peut renvoyer un Corps+Header ou rien
         Post.class // Le type de retour ici Post.class car c'est un objet simple
     );
 

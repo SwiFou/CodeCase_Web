@@ -75,9 +75,9 @@ public class LangageService {
    * @return Le langage
    * @throws CodeCaseWebException
    */
-  public Langage getLangage(int id) throws CodeCaseWebException {
+  public Langage getLangage(int id, String jwt) throws CodeCaseWebException {
     try {
-      return langageRepository.getLangage(id);
+      return langageRepository.getLangage(id, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}

@@ -1,4 +1,4 @@
-package fr.swif.codecase_web.config;
+package fr.swif.codecase_web.configuration;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

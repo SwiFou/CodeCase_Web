@@ -3,9 +3,10 @@
 <head th:insert="fragments :: htmlHead">
   <title>Se connecter</title>
 </head>
-<!--! Changer les variables (Voir avec les controller)-->
+
 <body>
 <div th:insert="fragments :: headerContent"></div>
+
 <main>
   <div id="main-container">
     <article>
@@ -13,20 +14,24 @@
         <div class="info-container">
           <div class ="avatar-container">
             <div class ="pseudo">
-              <span>Inscription</span>
+              <span>Connexion</span>
             </div>
           </div>
         </div>
       </div>
       <div class="article-container">
-        <form method="post" th:action="@{/loginUser}" th:object="${user}">
+        <form method="post" th:action="@{/connexion}" th:object="${user}">
           <div class="form-group">
-            <input type="text" th:field="*{emailUser}" placeholder="Email">
+            <input name="emailUser" type="text" th:field="*{userEmail}" placeholder="Email">
           </div>
+          <div class="validation-error" th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}">Erreur email</div>
+
           <div class="form-group">
-            <input type="text" th:field="*{passwordUser}" placeholder="Mot de Passe">
+            <input name="passwordUser" type="text" th:field="*{userMdp}" placeholder="Mot de Passe">
           </div>
-          <button type="submit">Submit</button>
+          <div class="validation-error" th:if="${#fields.hasErrors('userMdp')}" th:errors="*{userMdp}">Erreur mot de passe</div>
+
+          <button type="submit">Valider</button>
         </form>
       </div>
       <div class="article-footer">
@@ -34,6 +39,7 @@
     </article>
   </div>
 </main>
+
 <div th:insert="fragments :: footer"></div>
 
 </body>

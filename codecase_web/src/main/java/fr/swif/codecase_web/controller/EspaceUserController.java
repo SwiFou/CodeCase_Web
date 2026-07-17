@@ -6,6 +6,7 @@ import fr.swif.codecase_web.service.PostService;
 import fr.swif.codecase_web.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,10 +51,13 @@ public class EspaceUserController {
    * @return La page espaceUser
    */
   @GetMapping("/espaceUser")
-  public String login(@Valid @RequestParam String userMail, Model model)
+  public String login(@Valid @RequestParam String userMail, Model model,
+      Authentication authentication)
       throws CodeCaseWebException {
-    //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
-    User user = userService.getUserByMail(userMail);
+
+    String jwt = (String) authentication.getCredentials();
+
+    User user = userService.getUserByMail(userMail, jwt);
     model.addAttribute("user", user);
 
     return "espaceUser";
@@ -76,10 +80,13 @@ public class EspaceUserController {
   // et POST
   @PostMapping("/saveEmail")
   public ModelAndView saveEmail(@Valid @ModelAttribute("user") User user,
-      RedirectAttributes redirectAttributes) throws CodeCaseWebException {
-    //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
+      RedirectAttributes redirectAttributes, Authentication authentication)
+      throws CodeCaseWebException {
+
+    String jwt = (String) authentication.getCredentials();
+
     user.setUserEmail(user.getUserEmail());
-    userService.updateUser(user);
+    userService.updateUser(user, jwt);
 
     // addFlashAttribute permet de sauvegarder un message avant la redirection
     // de la page, n'est disponible qu'une seule fois puis est automatiquement
@@ -106,10 +113,13 @@ public class EspaceUserController {
   // et POST
   @PostMapping("/saveAvatar")
   public ModelAndView saveAvatar(@Valid @ModelAttribute("user") User user,
-      RedirectAttributes redirectAttributes) throws CodeCaseWebException {
-    //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
+      RedirectAttributes redirectAttributes, Authentication authentication)
+      throws CodeCaseWebException {
+
+    String jwt = (String) authentication.getCredentials();
+
     user.setUserAvatar(user.getUserAvatar());
-    userService.updateUser(user);
+    userService.updateUser(user, jwt);
 
     // addFlashAttribute permet de sauvegarder un message avant la redirection
     // de la page, n'est disponible qu'une seule fois puis est automatiquement
@@ -136,10 +146,13 @@ public class EspaceUserController {
   // et POST
   @PostMapping("/saveMdp")
   public ModelAndView saveMdp(@Valid @ModelAttribute("user") User user,
-      RedirectAttributes redirectAttributes) throws CodeCaseWebException {
-    //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
+      RedirectAttributes redirectAttributes, Authentication authentication)
+      throws CodeCaseWebException {
+
+    String jwt = (String) authentication.getCredentials();
+
     user.setUserMdp(user.getUserMdp());
-    userService.updateUser(user);
+    userService.updateUser(user, jwt);
 
     // addFlashAttribute permet de sauvegarder un message avant la redirection
     // de la page, n'est disponible qu'une seule fois puis est automatiquement

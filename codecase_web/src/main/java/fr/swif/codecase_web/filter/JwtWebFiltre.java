@@ -1,5 +1,7 @@
 package fr.swif.codecase_web.filter;
 
+import fr.swif.codecase_web.model.Role;
+import fr.swif.codecase_web.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
@@ -93,6 +95,8 @@ public class JwtWebFiltre extends OncePerRequestFilter {
         String email = claims.getSubject();
         // On récupère un claim du token. Ici le rôle de l'utilisateur
         String role = claims.get("role", String.class);
+        // On récupère un autre claim du token. Ici celui de l'id de l'utilisateur
+        Integer userId = claims.get("userId", Integer.class);
 
         // GrantedAuthority est une interface Spring Security qui représente une
         // permission/un rôle accordé à un utilisateur authentifié
@@ -101,17 +105,20 @@ public class JwtWebFiltre extends OncePerRequestFilter {
           authorities.add(new SimpleGrantedAuthority(role));
         }
 
+        // On construit un nouveau User qui est un user connecté
+        User userConnecte = new User();
+        userConnecte.setUserId(userId);
+        userConnecte.setUserEmail(email);
+        userConnecte.setUserRole(Role.valueOf(role));
+
         // Construction de l'objet d'authentification Spring Security à partir
         // de l'utilisateur et de ses rôles
         UsernamePasswordAuthenticationToken authentication =
             new UsernamePasswordAuthenticationToken(
                 // L'identité du User (Ici le mail extrait du subject de la JWT)
-                email,
-                // Les credentials (normalement le mot de passe).
-                // Ici null car le mot de passe n'est plus nécessaire :
-                // l'utilisateur a déjà prouvé son identité via son token
-                // JWT valide, donc pas besoin de re-vérifier un mot de passe.
-                null,
+                userConnecte,
+                // On garde la JWT brut
+                token,
                 // La liste des rôles/permission que l'utilisateur a
                 authorities
             );
@@ -125,7 +132,8 @@ public class JwtWebFiltre extends OncePerRequestFilter {
         log.debug("Tentative d'authentification avec un token JWT expiré côté"
             + "web : {}", eje.getMessage());
         SecurityContextHolder.clearContext();
-      } catch (JwtException | IllegalArgumentException e) {
+      } catch (JwtException | IllegalArgumentException | NullPointerException e)
+      {
         log.warn("Tentative d'authentification avec un token JWT invalide côté"
             + "web : {}", e.getMessage());
         SecurityContextHolder.clearContext();

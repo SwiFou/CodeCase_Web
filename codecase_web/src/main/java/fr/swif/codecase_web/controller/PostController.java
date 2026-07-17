@@ -3,6 +3,7 @@ package fr.swif.codecase_web.controller;
 import fr.swif.codecase_web.exception.CodeCaseWebException;
 import fr.swif.codecase_web.model.Post;
 import fr.swif.codecase_web.model.Technologie;
+import fr.swif.codecase_web.model.User;
 import fr.swif.codecase_web.service.LangageService;
 import fr.swif.codecase_web.service.PostService;
 import fr.swif.codecase_web.service.TechnologieService;
@@ -10,6 +11,7 @@ import fr.swif.codecase_web.service.UserService;
 import jakarta.validation.Valid;
 import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,7 +61,6 @@ public class PostController {
    */
   @GetMapping("/creationPost")
   public String formulaire(Model model) throws CodeCaseWebException {
-    //! Faire en sorte de vérifier le token JWT du user avant toutes modifs
     model.addAttribute("post", new Post());
     model.addAttribute("langages", langageService.getLangages());
     model.addAttribute("technologies", technologieService.getTechnologies());
@@ -83,11 +84,15 @@ public class PostController {
       @RequestParam("idLangage") String langageId,
       @RequestParam("idTechnologie") String technologieId,
       @RequestParam(value = "nouvelleTechnologie", required = false)
-      String nouvelleTechnologieIntitule)
+      String nouvelleTechnologieIntitule,
+      Authentication authentication)
       throws CodeCaseWebException {
-    //! TEMPORAIRE POUR L'ID
-    //! Faire en sorte de vérifier le token JWT du user avant toutes modifs
-    post.setUserId(userService.getUser(1));
+
+    User userConnecte = (User) authentication.getPrincipal();
+
+    String jwt = (String) authentication.getCredentials();
+
+    post.setUserId(userService.getUser(userConnecte.getUserId(), jwt));
 
     post.setPostDateCreation(LocalDateTime.now());
 
@@ -103,6 +108,7 @@ public class PostController {
     }
 
     boolean technologieIdVide = technologieId == null || technologieId.isBlank();
+
     boolean nouvelleTechnologieVide = nouvelleTechnologieIntitule == null
         || nouvelleTechnologieIntitule.isBlank();
 
@@ -117,24 +123,31 @@ public class PostController {
           "Veuillez sélectionner un"
               + " Outils & Technologie ou en créer un nouveau");
     }
+    // Si dans les deux champs Outils & Technologies et
+    // "Nouvel Outil et/ou Technologie" alors, il y a un message d'erreur
+    // communiqué à l'utilisateur.
+    else if (!technologieIdVide && !nouvelleTechnologieVide) {
+      bindingResult.rejectValue("technologieId",
+          "technologie.conflict",
+          "Veuillez choisir un Outils & Technologie existant "
+              + "ou en créer un nouveau, pas les deux");
+    }
     // S'il n'y a rien de sélectionné dans la liste déroulante de
-    // Outils & Technologies alors ça sauvegarde la saisie dans du champ
+    // Outils & Technologies alors ça sauvegarde la saisie dans le champ
     // "Nouvel Outil et/ou Technologie".
     else if (technologieIdVide) {
       Technologie nouvelleTechnologie = new Technologie();
       nouvelleTechnologie.setTechnologieIntitule(nouvelleTechnologieIntitule);
-      //! TEMPORAIRE POUR L'ID
-      //! Faire en sorte que de vérifier le token JWT du user avant toutes modifs
-      nouvelleTechnologie.setUserId(userService.getUser(1));
+      nouvelleTechnologie.setUserId(userService.getUser(
+          userConnecte.getUserId(), jwt));
       technologieACreer =
-          technologieService.createTechnologie(nouvelleTechnologie);
+          technologieService.createTechnologie(nouvelleTechnologie, jwt);
     } else {
       technologieACreer =
-          technologieService.getTechnologie(Integer.parseInt(technologieId));
+          technologieService.getTechnologie(Integer.parseInt(technologieId), jwt);
     }
 
-
-    //! Important pour retourner la page initiale s'il y a des erreurs
+    // Important pour retourner la page initiale s'il y a des erreurs
     // Les addObject servent à recharger les méthodes getLangages et
     // getTechnologies, car sinon quand il y a une erreur liée à langageId ou
     // technologieId ceux-ci ne sont pas rechargés
@@ -147,10 +160,10 @@ public class PostController {
       return modelAndView;
     }
 
-    post.setLangageId(langageService.getLangage(Integer.parseInt(langageId)));
+    post.setLangageId(langageService.getLangage(Integer.parseInt(langageId), jwt));
     post.setTechnologieId(technologieACreer);
 
-    postService.createPost(post);
+    postService.createPost(post, jwt);
     return new ModelAndView("redirect:/");
   }
 }

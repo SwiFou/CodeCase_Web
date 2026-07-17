@@ -43,9 +43,9 @@ public class UserService {
    * @return Un Iterable de User
    * @throws CodeCaseWebException
    */
-  public Iterable<User> getUsers() throws CodeCaseWebException {
+  public Iterable<User> getUsers(String jwt) throws CodeCaseWebException {
     try {
-      return userRepository.getUsers();
+      return userRepository.getUsers(jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
@@ -75,9 +75,9 @@ public class UserService {
    * @return Le User cherché
    * @throws CodeCaseWebException
    */
-  public User getUser(int id) throws CodeCaseWebException {
+  public User getUser(int id, String jwt) throws CodeCaseWebException {
     try {
-      return userRepository.getUser(id);
+      return userRepository.getUser(id, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
@@ -107,9 +107,9 @@ public class UserService {
    * @return Le User cherché
    * @throws CodeCaseWebException
    */
-  public User getUserByPseudo(String pseudo) throws CodeCaseWebException {
+  public User getUserByPseudo(String pseudo, String jwt) throws CodeCaseWebException {
     try {
-      return userRepository.getUserByPseudo(pseudo);
+      return userRepository.getUserByPseudo(pseudo, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
@@ -139,9 +139,9 @@ public class UserService {
    * @return Le User cherché
    * @throws CodeCaseWebException
    */
-  public User getUserByMail(String mail) throws CodeCaseWebException {
+  public User getUserByMail(String mail, String jwt) throws CodeCaseWebException {
     try {
-      return userRepository.getUserByMail(mail);
+      return userRepository.getUserByMail(mail, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
@@ -170,9 +170,9 @@ public class UserService {
    * @param id L'id du User à supprimer
    * @throws CodeCaseWebException
    */
-  public void deleteUser(int id) throws CodeCaseWebException {
+  public void deleteUser(int id, String jwt) throws CodeCaseWebException {
     try {
-      userRepository.deleteUser(id);
+      userRepository.deleteUser(id, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
@@ -202,9 +202,9 @@ public class UserService {
    * @return Le User créé
    * @throws CodeCaseWebException
    */
-  public User createUser(User user) throws CodeCaseWebException {
+  public User createUser(User user, String jwt) throws CodeCaseWebException {
     try {
-      return userRepository.createUser(user);
+      return userRepository.createUser(user, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
@@ -235,9 +235,9 @@ public class UserService {
    * @return Le User mis à jour
    * @throws CodeCaseWebException
    */
-  public User updateUser(User user) throws CodeCaseWebException {
+  public User updateUser(User user, String jwt) throws CodeCaseWebException {
     try {
-      return userRepository.updateUser(user);
+      return userRepository.updateUser(user, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
@@ -267,9 +267,9 @@ public class UserService {
    * @param id L'id du User à anonymiser
    * @throws CodeCaseWebException
    */
-  public void anonymisationUser(int id) throws CodeCaseWebException {
+  public void anonymisationUser(int id, String jwt) throws CodeCaseWebException {
     try {
-      userRepository.anonymisationUser(id);
+      userRepository.anonymisationUser(id, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}

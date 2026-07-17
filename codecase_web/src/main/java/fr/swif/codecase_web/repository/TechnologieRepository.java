@@ -1,12 +1,12 @@
 package fr.swif.codecase_web.repository;
 
-import fr.swif.codecase_web.config.CustomProperties;
-import fr.swif.codecase_web.model.Post;
+import fr.swif.codecase_web.configuration.CustomProperties;
 import fr.swif.codecase_web.model.Technologie;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -75,7 +75,7 @@ public class TechnologieRepository {
    * @param id L'id de la Technologie cherchée
    * @return La Technologie
    */
-  public Technologie getTechnologie(int id) {
+  public Technologie getTechnologie(int id, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String getTechnologieUrl = BASE_API_URL + "/technologie/" + id;
 
@@ -83,12 +83,19 @@ public class TechnologieRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
+    HttpEntity<Void> request = new HttpEntity<>(headers);
+
     // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<Technologie> response = restTemplate.exchange(
         getTechnologieUrl, // L'URL
         HttpMethod.GET, // La méthode HTTP
-        null, // La requestEntity qui peut renvoyer un Corps+Header ou rien
+        request, // Le HttpEntity
         Technologie.class // Le type de retour ici Technologie.class car c'est un objet simple
     );
 
@@ -108,7 +115,7 @@ public class TechnologieRepository {
    * @param technologie La Technologie à créer
    * @return La Technologie créée
    */
-  public Technologie createTechnologie(Technologie technologie) {
+  public Technologie createTechnologie(Technologie technologie, String jwt) {
     String BASE_API_URL = props.getApiUrl();
     String createTechnologieUrl = BASE_API_URL + "/technologie";
 
@@ -116,8 +123,13 @@ public class TechnologieRepository {
     // type de requête (GET, POST, etc.) et le type d'objet qui sera retourné.
     // Il fait la requête à l'API et convertit le résultat JSON en objet Java.
     RestTemplate restTemplate = new RestTemplate();
+
+    HttpHeaders headers = new HttpHeaders();
+    if (jwt != null) {
+      headers.setBearerAuth(jwt);
+    }
     // HttpEntity est un objet qui retourne un Body et Headers
-    HttpEntity<Technologie> request = new HttpEntity<>(technologie);
+    HttpEntity<Technologie> request = new HttpEntity<>(technologie, headers);
     // ResponseEntity est une classe Spring qui représente toute la réponse HTTP
     // exchange permet de transmettre :
     ResponseEntity<Technologie> response = restTemplate.exchange(

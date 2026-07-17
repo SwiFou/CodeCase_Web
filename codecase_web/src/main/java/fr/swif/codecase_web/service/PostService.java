@@ -74,9 +74,9 @@ public class PostService {
    * @return Le Post
    * @throws CodeCaseWebException
    */
-  public Post getPost(int id) throws CodeCaseWebException{
+  public Post getPost(int id, String jwt) throws CodeCaseWebException {
     try {
-      return postRepository.getPost(id);
+      return postRepository.getPost(id, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
@@ -105,9 +105,9 @@ public class PostService {
    * @param id L'id du Post à supprimer
    * @throws CodeCaseWebException
    */
-  public void deletePost(int id) throws CodeCaseWebException{
+  public void deletePost(int id, String jwt) throws CodeCaseWebException {
     try {
-      postRepository.deletePost(id);
+      postRepository.deletePost(id, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}
@@ -137,9 +137,9 @@ public class PostService {
    * @return Le Post créé
    * @throws CodeCaseWebException
    */
-  public Post createPost(Post post) throws CodeCaseWebException{
+  public Post createPost(Post post, String jwt) throws CodeCaseWebException {
     try {
-      return postRepository.createPost(post);
+      return postRepository.createPost(post, jwt);
     } catch (HttpClientErrorException cx) {
       // Les {} sont des placeholders : le code de statut et le message vont
       // se placer dans les {}

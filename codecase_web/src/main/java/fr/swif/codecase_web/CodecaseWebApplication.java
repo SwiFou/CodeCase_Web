@@ -1,6 +1,6 @@
 package fr.swif.codecase_web;
 
-import fr.swif.codecase_web.config.CustomProperties;
+import fr.swif.codecase_web.configuration.CustomProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
