@@ -52,7 +52,7 @@ public class SecurityConfigWeb {
         // Pas de formLogin Spring classique : on gère nous-mêmes /connexion
         // via AuthWebController
         .formLogin(form -> form.disable())
-        //! à réactiver si tu ajoutes un token CSRF dans tes formulaires Thymeleaf
+        // à réactiver si j'ajoute un token CSRF dans les formulaires Thymeleaf
         .csrf(csrf -> csrf.disable())
         .authorizeHttpRequests(auth -> auth
             .requestMatchers(
